@@ -1,0 +1,3039 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Ôn tập Mạng Máy Tính | Trắc nghiệm</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", "Inter", system-ui, sans-serif;
+        background: #f0f2f8;
+        color: #1e293b;
+        font-size: 14px;
+      }
+      .home-container {
+        max-width: 600px;
+        margin: 80px auto;
+        text-align: center;
+        background: white;
+        border-radius: 32px;
+        padding: 48px 32px;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+      }
+      .home-container h1 {
+        font-size: 2rem;
+        color: #0f2b3d;
+        margin-bottom: 8px;
+      }
+      .mock-badge {
+        background: #eef2ff;
+        display: inline-block;
+        color: black;
+        padding: 6px 18px;
+        border-radius: 40px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+      }
+      .info-row {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin: 20px 0;
+      }
+      .info-item {
+        background: #f8fafc;
+        color: black;
+        padding: 8px 16px;
+        border-radius: 40px;
+      }
+      .start-btn {
+        background: #1a4a6f;
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 60px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      .start-btn:hover {
+        background: #0f3550;
+      }
+      .history-summary {
+        margin-top: 40px;
+        text-align: left;
+      }
+      .history-summary h2 {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+      }
+      .history-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      .history-table th,
+      .history-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #eef2f8;
+      }
+      .history-table th {
+        background-color: #f8fafc;
+        font-weight: 600;
+        color: #475569;
+      }
+      .history-table tbody tr:hover {
+        background-color: #e2e8f0;
+      }
+      .history-table .review-link {
+        color: #1a4a6f;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .history-table .review-link:hover {
+        text-decoration: underline;
+      }
+      .exam-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .main-content {
+        flex: 2;
+        min-width: 280px;
+      }
+      .sidebar {
+        flex: 1;
+        min-width: 260px;
+        background: white;
+        border-radius: 20px;
+        padding: 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        height: fit-content;
+        position: sticky;
+        top: 16px;
+        max-height: calc(100vh - 32px);
+        display: flex;
+        flex-direction: column;
+      }
+      .hero {
+        background: linear-gradient(135deg, #0f2b3d 0%, #1a4a6f 100%);
+        border-radius: 20px;
+        padding: 14px 20px;
+        margin-bottom: 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        cursor: pointer;
+      }
+      .hero h1 {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      .timer {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 4px 12px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+      .result-panel {
+        background: white;
+        border-radius: 20px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid #22c55e;
+        display: none;
+      }
+      .result-panel table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      .result-panel td {
+        padding: 6px 8px;
+        border-bottom: 1px solid #eef2f8;
+      }
+      .result-panel td:first-child {
+        font-weight: 600;
+        width: 140px;
+        color: #475569;
+      }
+      .question-card {
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 16px;
+      }
+      .question-text {
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eef2f8;
+        white-space: pre-wrap;
+      }
+      .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .option-item {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 40px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.85rem;
+      }
+      .option-item.selected {
+        background: #e6f7ff;
+        border-color: #1a4a6f;
+      }
+      .option-item.correct-after {
+        background: #dcfce7;
+        border-color: #22c55e;
+      }
+      .option-item.wrong-after {
+        background: #fee2e2;
+        border-color: #ef4444;
+      }
+      .option-prefix {
+        font-weight: 700;
+        width: 28px;
+      }
+      .-area {
+        margin-top: 12px;
+        padding: 10px 16px;
+        border-radius: 16px;
+        font-size: 0.8rem;
+        display: none;
+      }
+      .-area.show {
+        display: block;
+      }
+      .-correct {
+        background: #dcfce7;
+        color: #166534;
+        border-left: 3px solid #22c55e;
+      }
+      .-wrong {
+        background: #fee2e2;
+        color: #991b1b;
+        border-left: 3px solid #ef4444;
+      }
+      .nav-bar-bottom {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 12px;
+        gap: 10px;
+      }
+      .nav-buttons {
+        display: flex;
+        gap: 12px;
+      }
+      .nav-btn {
+        background: white;
+        border: 1px solid #e2e8f0;
+        padding: 8px 20px;
+        border-radius: 40px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      .question-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        max-height: 460px;
+        overflow-y: auto;
+        padding-right: 4px;
+        margin-bottom: 16px;
+      }
+      .q-num {
+        background: #f1f5f9;
+        border-radius: 10px;
+        padding: 8px 0;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.75rem;
+        cursor: pointer;
+      }
+      .q-num.selected {
+        background: #bfdbfe;
+        border: 1px solid #1a4a6f;
+      }
+      .q-num.correct {
+        background: #22c55e;
+        color: white;
+      }
+      .q-num.wrong {
+        background: #ef4444;
+        color: white;
+      }
+      .q-num.current {
+        border: 2px solid #1a4a6f;
+        background: #e6f7ff;
+      }
+      .submit-btn {
+        width: 100%;
+        background: #1a4a6f;
+        color: white;
+        padding: 10px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        border: none;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin: 12px 0 8px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .tab-btn {
+        background: none;
+        border: none;
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: #64748b;
+      }
+      .tab-btn.active {
+        color: #1a4a6f;
+        border-bottom: 2px solid #1a4a6f;
+      }
+      .tab-content {
+        display: none;
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 8px;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .history-item {
+        background: #f8fafc;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border-radius: 12px;
+        cursor: pointer;
+      }
+      .theme-switch {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #1a4a6f;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        font-size: 1.2rem;
+      }
+      body.dark-mode {
+        background: #0f172a;
+        color: #f1f5f9;
+      }
+      body.dark-mode .home-container,
+      body.dark-mode .sidebar,
+      body.dark-mode .result-panel,
+      body.dark-mode .question-card {
+        background: #1e293b;
+        color: #f1f5f9;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      }
+      body.dark-mode .history-table th {
+        background: #334155;
+        color: #cbd5e1;
+      }
+      body.dark-mode .history-table tbody tr:hover {
+        background-color: #334155;
+      }
+      body.dark-mode .history-table .review-link {
+        color: #60a5fa;
+      }
+      body.dark-mode .history-table td {
+        border-bottom: 1px solid #334155;
+      }
+      body.dark-mode .home-container h1,
+      body.dark-mode .result-panel td:first-child {
+        color: #f8fafc;
+      }
+      body.dark-mode .mock-badge,
+      body.dark-mode .info-item {
+        background: #334155;
+        color: #e2e8f0;
+      }
+      body.dark-mode .option-item {
+        background: #334155;
+        border-color: #475569;
+        color: #f1f5f9;
+      }
+      body.dark-mode .option-item:hover {
+        background: #475569;
+      }
+      body.dark-mode .option-item.selected {
+        background: #1e3a8a;
+        border-color: #3b82f6;
+      }
+      body.dark-mode .option-item.correct-after {
+        background: #166534;
+        border-color: #22c55e;
+      }
+      body.dark-mode .option-item.wrong-after {
+        background: #991b1b;
+        border-color: #ef4444;
+      }
+      body.dark-mode .nav-btn {
+        background: #334155;
+        border-color: #475569;
+        color: #f8fafc;
+      }
+      body.dark-mode .nav-btn:hover:not(:disabled) {
+        background: #475569;
+      }
+      body.dark-mode .nav-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      body.dark-mode .q-num {
+        background: #334155;
+        color: #f1f5f9;
+      }
+      body.dark-mode .q-num.selected {
+        background: #2563eb;
+        border-color: #60a5fa;
+      }
+      body.dark-mode .q-num.correct {
+        background: #22c55e;
+      }
+      body.dark-mode .q-num.wrong {
+        background: #ef4444;
+      }
+      body.dark-mode .q-num.current {
+        border-color: #60a5fa;
+        background: #1e3a8a;
+      }
+      body.dark-mode .question-text,
+      body.dark-mode .wrong-item {
+        border-bottom-color: #475569;
+      }
+      body.dark-mode .history-item {
+        background: #334155;
+      }
+      body.dark-mode .history-item:hover {
+        background: #475569;
+      }
+      body.dark-mode .history-item .score {
+        color: #60a5fa;
+      }
+      body.dark-mode .wrong-item a {
+        color: #60a5fa;
+      }
+
+      body.dark-mode .tab-btn.active {
+        color: #93c5fd;
+        border-bottom-color: #93c5fd;
+      }
+      body.dark-mode .tabs {
+        border-bottom-color: #475569;
+      }
+      @media (max-width: 850px) {
+        .exam-container {
+          flex-direction: column;
+        }
+        .sidebar {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="theme-switch" id="themeSwitch">🌙</button>
+
+    <div id="homePage" class="home-container">
+      <div class="tabs" style="justify-content: center; margin-bottom: 24px">
+        <button class="tab-btn active" data-tab="new-exam">Trang chủ</button>
+        <button class="tab-btn" data-tab="history-summary">Lịch sử</button>
+      </div>
+      <div id="new-examTab" class="tab-content active">
+        <div class="mock-badge">Thi thử</div>
+        <h1>Ôn tập Mạng Máy Tính</h1>
+        <div class="info-row">
+          <div class="info-item" id="infoQuestions">📄 Tất cả câu hỏi</div>
+          <div class="info-item" id="infoTime">⏱️ 50 phút</div>
+          <div class="info-item">🎯 Tự động chấm</div>
+        </div>
+        <div style="margin: 20px 0">
+          <label for="questionSetSelect" style="font-weight: 600"
+            >Chọn bộ đề:</label
+          >
+          <select
+            id="questionSetSelect"
+            style="padding: 10px 16px; border-radius: 20px; margin-left: 10px"
+            onchange="updateInfo()"
+          >
+            <option value="0">Tất cả câu hỏi</option>
+            <option value="1">Bộ 1 (Câu 1 - 27)</option>
+            <option value="2">Bộ 2 (Câu 28 - 54)</option>
+            <option value="3">Bộ 3 (Câu 55 - 81)</option>
+            <option value="4">Bộ 4 (Câu 82 - 108)</option>
+            <option value="5">Bộ 5 (Câu 109 - 135)</option>
+            <option value="6">Bộ 6 (Câu 136 - Hết)</option>
+          </select>
+        </div>
+        <script>
+          function updateInfo() {
+            const selectVal =
+              document.getElementById("questionSetSelect").value;
+            if (selectVal === "0") {
+              document.getElementById("infoQuestions").innerText =
+                "📄 Tất cả câu hỏi";
+              document.getElementById("infoTime").innerText = "⏱️ 50 phút";
+            } else {
+              document.getElementById("infoQuestions").innerText =
+                "📄 27 câu/lần";
+              document.getElementById("infoTime").innerText = "⏱️ 20 phút";
+            }
+          }
+        </script>
+        <button class="start-btn" id="startExamBtn">Bắt đầu làm bài →</button>
+      </div>
+      <div id="history-summaryTab" class="tab-content">
+        <div class="history-summary">
+          <h2>📋 Lịch sử thi</h2>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Lần</th>
+                <th>Trạng thái</th>
+                <th>Điểm /100</th>
+                <th>Xem lại</th>
+              </tr>
+            </thead>
+            <tbody id="historySummaryBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="examPage" style="display: none">
+      <div class="exam-container">
+        <div class="main-content">
+          <div class="hero" id="backToHomeBtn">
+            <div>
+              <h1>📘 ÔN TẬP & KIỂM TRA</h1>
+              <p>Hệ thống Ôn tập & Thi thử • Mạng Máy Tính</p>
+            </div>
+            <div class="timer" id="timerDisplay">20:00</div>
+          </div>
+          <div id="resultPanel" class="result-panel">
+            <table>
+              <tr>
+                <td>Bắt đầu</td>
+                <td id="startTimeStr">-</td>
+              </tr>
+              <tr>
+                <td>Kết thúc</td>
+                <td id="endTimeStr">-</td>
+              </tr>
+              <tr>
+                <td>Thời gian</td>
+                <td id="durationStr">-</td>
+              </tr>
+              <tr>
+                <td>Điểm</td>
+                <td id="scoreDetail">-</td>
+              </tr>
+              <tr>
+                <td>Điểm %</td>
+                <td id="scorePercent">-</td>
+              </tr>
+            </table>
+          </div>
+          <div class="question-card">
+            <div class="question-text" id="questionText">Đang tải...</div>
+            <div class="options-list" id="optionsContainer"></div>
+            <div class="-area" id="Area"></div>
+            <div class="nav-bar-bottom">
+              <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn">◀ Trước</button
+                ><button class="nav-btn" id="nextBtn">Sau ▶</button
+                ><button
+                  class="nav-btn"
+                  id="submitBtnBottom"
+                  style="display: none; background: #1a4a6f; color: white"
+                >
+                  📥 Nộp bài
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+            "
+          >
+            <strong>📋 DANH SÁCH CÂU</strong
+            ><span
+              id="answeredCounter"
+              style="
+                background: #eef2ff;
+                color: black;
+                padding: 2px 8px;
+                border-radius: 20px;
+              "
+              >0/0</span
+            >
+          </div>
+          <div id="questionGrid" class="question-grid"></div>
+          <button class="submit-btn" id="submitExamBtn">📥 NỘP BÀI</button>
+          <button
+            class="nav-btn"
+            id="goToHomeBtn"
+            style="width: 100%; margin-top: 12px"
+          >
+            Về trang chủ
+          </button>
+          <button
+            class="nav-btn"
+            id="goToHistoryBtn"
+            style="width: 100%; margin-top: 8px"
+          >
+            Lịch sử thi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ---------- BỘ CÂU HỎI THEO TÀI LIỆU TNNNHT.docx (Chương 1 & 2) ----------
+      const QUESTION_BANK = [
+        // Lần 1 – từ tài liệu DOCX
+        {
+          text: "Topo mạng nào sử dụng phương thức truyền Broadcast?",
+          options: ["Ring", "Star", "Mesh", "Bus"],
+          correct: [0, 3],
+        },
+        {
+          text: "Mệnh đề nào sai?",
+          options: [
+            "Phương thức truyền Broadcast làm tăng khả năng xảy ra Collison",
+            "Phương thức truyền Point to point hạn chế khả năng xảy ra Collison",
+            "Switch sử dụng phương thức truyền Point to point",
+            "Hub sử dụng phương thức truyền Point to point",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về VPN?",
+          options: [
+            "Phù hợp với các trường học, bệnh viện",
+            "Dùng đường truyền công cộng để truyền thông tin cần bảo mật",
+            "Dùng một giao thức mã hóa nào đó để bảo mật thông tin",
+            "Không có đường truyền mạng",
+          ],
+          correct: [0, 2],
+        },
+        {
+          text: "Dịch vụ Internet tại Việt Nam được cung cấp chính thức từ năm nào?",
+          options: ["1995", "1997", "2000", "2003"],
+          correct: 1,
+        },
+        {
+          text: "Internet ra đời vào khoảng năm nào?",
+          options: ["1969", "1980", "1995", "2005"],
+          correct: 0,
+        },
+        {
+          text: "TCP/IP là từ viết tắt của:",
+          options: [
+            "Technology Central Processing/Intel Pentium",
+            "Technology Central Processing/ Internet Protocol",
+            "Transmission Control Protocol/ Internet Protocol",
+            "Technology Central Protocol /Intel Pentium",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Trong mô hình OSI, thiết bị Router hoạt động ở lớp nào?",
+          options: ["Lớp 7", "Lớp 5", "Lớp 3", "Lớp 1"],
+          correct: 2,
+        },
+        {
+          text: "Thiết bị nào thường được sử dụng để kết nối mạng LAN với Internet?",
+          options: ["HUB", "BRIDGE", "SWITCH", "ROUTER"],
+          correct: 3,
+        },
+        {
+          text: "LAN là từ viết tắt của:",
+          options: [
+            "Link Address Network",
+            "Local Address Network",
+            "Local Area Network",
+            "Link Area Network",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Thứ tự của 3 lớp thấp nhất trong mô hình OSI là",
+          options: [
+            "Vật lý- Mạng - Liên kết dữ liệu",
+            "Vật lý - Liên kết dữ liệu - Vận chuyển",
+            "Vật lý - Mạng - Vận chuyển",
+            "Vật lý - Liên kết dữ liệu - Mạng",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Đâu là tên của một giao thức?",
+          options: [
+            "Protocol",
+            "Token Passing",
+            "Token Ring",
+            "VPN",
+            "Topo",
+            "IPSec",
+          ],
+          correct: [2, 5], // Token Ring, IPSec
+        },
+        {
+          text: "Mô tả nào đúng về hiện tượng Collision?",
+          options: [
+            "Chỉ xảy ra trên lược đồ Bus mà thôi",
+            "Là hiện tượng có hại",
+            "Xảy ra càng nhiều thì hiệu suất mạng càng cao",
+            "Xảy ra khi có từ 2 tín hiệu trở lên cùng truyền đi trên đường truyền",
+            "Xảy ra khi có từ 2 máy trạm trở lên cùng phát tin lên đường truyền",
+          ],
+          correct: [1, 3, 4],
+        },
+        {
+          text: "Mô tả nào đúng về lược đồ Hình sao?",
+          options: [
+            "Nếu cáp đứt tại 1 vị trí thì toàn mạng sẽ mất kết nối",
+            "Sử dụng Switch (Hub) làm thiết bị đấu nối trung tâm",
+            "Khả năng chịu lỗi thấp hơn lược đồ Bus",
+            "Khó bảo trì, khó tìm ra chỗ cáp bị đứt",
+            "Trong lúc sửa chữa thì toàn mạng không hoạt động",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mô tả nào đúng khi mô tả về Hub và Switch?",
+          options: [
+            "Switch hạn chế xung đột bằng cách chỉ phát gói tin tới duy nhất 1 cổng gắn với trạm thu",
+            "So với Hub, Switch làm tăng xung đột và làm giảm hiệu suất mạng",
+            "Khi nhận được gói tin từ một trạm phát, Hub chỉ phát vào cổng đang nối với trạm thu",
+            "Hub biết chính xác địa chỉ MAC nào đang kết nối với cổng số mấy",
+            "Switch ghi nhớ địa chỉ MAC của những thiết bị kết nối với các cổng",
+          ],
+          correct: [0, 4],
+        },
+        {
+          text: "Mô tả nào đúng về công nghệ IEEE 802.5?",
+          options: [
+            "Sử dụng đồng thời hai lược đồ là Bus và Star",
+            "Sử dụng đồng thời hai lược đồ là Ring và Star",
+            "Tại mỗi thời điểm chỉ có một máy trạm được quyền phát tin, do đó làm tăng khả năng chịu lỗi và dễ bảo trì",
+            "Sử dụng giao thức Token Passing để tránh hiện tượng Collision",
+            "Sử dụng giao thức Token Ring để tránh hiện tượng Collision",
+            "Khả năng chịu lỗi tốt, dễ bảo trì",
+            "Sử dụng thiết bị MAU để tránh xung đột",
+          ],
+          correct: [1, 2, 3, 5, 6],
+        },
+        {
+          text: "Mô tả nào đúng về Mô hình mạng?",
+          options: [
+            "Làm cho một hệ thống mạng không thể bao gồm sản phẩm từ nhiều nhà sản xuất khác nhau",
+            "Giúp người dùng có thể lựa chọn sản phẩm từ nhiều nhà sản xuất",
+            "Nhằm mục đích làm cho sản phẩm mạng của các công ty dễ dàng cạnh tranh với nhau",
+            "Nhằm mục đích làm cho sản phẩm mạng của các công ty tương thích với nhau",
+            "Nhằm mục đích làm cho sản phẩm mạng của các công ty đều giống nhau",
+          ],
+          correct: [1, 2, 3],
+        },
+        {
+          text: "Nếu trình duyệt trên Client cần tìm địa chỉ DNS ứng với một địa chỉ IP nào đó thì nó sẽ gửi thông điệp DNS query cho ...",
+          options: [
+            "DNS server (còn gọi là Name server)",
+            "FTP server",
+            "Mail server",
+            "HTTP server",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về dịch vụ thư điện tử?",
+          options: [
+            "Giao thức IMAP đã lạc hậu và được thay thế bởi POP3",
+            "POP3 cho phép xem email ngay cả khi không có kết nối Internet",
+            "Khi đĩa cứng của máy PC cá nhân bị hỏng, nếu dùng IMAP thì sẽ không bị mất bức thư nào còn nếu dùng POP3 thì có thể bị mất",
+            "IMAP yêu cầu phải có kết nối Internet mới xem được nội dung email",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về dịch vụ OTT?",
+          options: [
+            "Hầu hết các ứng dụng OTT đều sử dụng công nghệ VoiIP hay video streaming để truyền âm thanh, video",
+            "Tên viết đầy đủ là Over Top Transmision",
+            "Là các dịch vụ được cung cấp trực tiếp tới người dùng, nhà cung cấp đường truyền mạng không thể quản lý nội dung hay thu phí",
+            "Bao gồm các dịch vụ như tin nhắn, gọi điện thoại, truyền hình, xem phim",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về hệ thống phân giải tên miền DNS?",
+          options: [
+            "Viết tắt là DNS, viết đầy đủ là Domain Name System",
+            "Có nhiệm vụ chuyển đổi tên miền sang địa chỉ IP tương ứng và ngược lại",
+            "Vì địa chỉ IP dài và khó nhớ nên cần phải có DNS",
+            "Vì tên miền dài và khó nhớ nên cần phải có DNS để dịch",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Đâu là tài nguyên mạng?",
+          options: ["Camera số", "Keyboard", "MS. Word", "Scanner", "Zalo"],
+          correct: [0, 3, 4],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về HTTP?",
+          options: [
+            "HTTP Client chính là Web browser chạy trên máy của User",
+            "HTTP Client gửi thông điệp yêu cầu một nội dung nào đó (file HTML, ảnh, video …), sau đó HTTP server gửi trả lại một thông điệp chứa đối tượng được yêu cầu",
+            "Cổng mặc định là 80, nhưng lập trình viên có thể chọn cổng khác",
+            "Hiện nay HTTP chủ yếu sử dụng UDP thay vì TCP",
+          ],
+          correct: 3,
+        },
+        {
+          text: 'Trong tên miền "hnue.edu.vn" của trường Đại học Sư phạm Hà Nội, ".edu" không phải là tên miền ở cấp nào?',
+          options: ["gTLD", "Generic TLD", "Top Level", "Tên miền cấp hai"],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về HTTP 1.0?",
+          options: [
+            "Sử dụng giao thức UDP ở tầng dưới",
+            "Hoạt động theo kiểu connection",
+            "Sau khi Web server gửi xong thông điệp Respond thì sẽ hủy kết nối tới Client",
+            "Sau khi Web browser gửi xong thông điệp Request thì sẽ hủy kết nối tới Web server",
+          ],
+          correct: 2,
+        },
+        {
+          text: "HTTP 1.1 và HTTP 2 hoạt động theo kiểu ...",
+          options: [
+            "Mỗi kết nối từ Client đến Server chỉ để truyền một cặp thông điệp",
+            "Truyền các thông điệp chỉ bằng một kết nối duy nhất",
+            "Sử dụng chế độ connectionless như HTTP 1.0",
+            "Sử dụng chế độ truyền Persistent Connection (kết nối tạm thời)",
+            "Tiết kiệm thời gian truyền bằng cách sử dụng chế độ connectionless",
+          ],
+          correct: 1,
+        },
+        {
+          text: "HTTP 1.1 hoạt động theo kiểu nào?",
+          options: [
+            "file cookie được tạo ra để giúp user truy cập Web nhanh và tiện lợi hơn",
+            "stateless (ghi nhớ thông tin trạng thái)",
+            "file cookie được tạo ra để chống lại mã độc",
+            "file cookie được tạo ra để ghi nhớ các thông tin trạng thái",
+            "sau khi hủy kết nối thì client và server không còn lưu trữ thông tin trạng thái nào về phiên kết nối",
+          ],
+          correct: [0, 3, 4],
+        },
+        {
+          text: "Mô tả nào đúng về cặp thông điệp của HTTP?",
+          options: [
+            "Bao gồm nhiều dòng kết thúc bởi ký tự Carriage Return (LF, 13h)",
+            "Có tên là Recursive Query và Response Query",
+            "HTTP Response do Web browser phát đi",
+            "Thông điệp HTTP Request chứa nội dung thông tin trả lời cho yêu cầu của user, do đó có kích thước lớn hơn thông điệp HTTP Response",
+            "tồn tại dưới dạng văn bản ASCII",
+            "HTTP Request do Web server gửi đi",
+            "là thông điệp tồn tại dưới dạng văn bản, được mã hóa bằng bộ mã Unicode",
+            "Thông tin trả lời cho yêu cầu của user nằm trong trường Message Body của thông điệp HTTP Request",
+          ],
+          correct: 4,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về RFC?",
+          options: [
+            "Tài liệu được lưu trữ dưới dạng file văn bản .doc hoặc .pdf",
+            "Là kho tài liệu kỹ thuật mô tả về những chuẩn mạng",
+            "Viết đầy đủ là Request for Comments",
+            "Được quản lý bởi tổ chức IETF",
+          ],
+          correct: 0,
+        },
+        {
+          text: 'Trong tên miền "hnue.edu.vn" của trường Đại học Sư phạm Hà Nội, ".vn" là tên miền ở cấp nào?',
+          options: ["Generic TLD", "Top Level", "gTLD", "Country Code TLD"],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về DNS Server?",
+          options: [
+            "Nhiệm vụ của Root Name Server là trả lại địa chỉ của DNS Server quản lý các tên miền cấp quốc gia, sau đó máy chủ này sẽ trả lời Local name server",
+            "Khi nhận được Recursive query từ client, DNS Server có nhiệm vụ gửi trả Response query",
+            "Nhận được Recursive query từ client, nếu DNS Server không tìm thấy tên miền cần tìm trong cơ sở dữ liệu tên miền, nó sẽ gửi trả thông điệp NAK cho client. Khi đó trình duyệt sẽ hiển thị thông báo rằng trang web hiện không truy cập được",
+            "Khi trình duyệt cần tìm địa chỉ IP ứng với một tên miền nào đó, nó sẽ hỏi DNS Server",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Giả sử ta chia qui trình gửi Email từ A tới B thành các bước như sau: (1) User Agent A gửi email tới Mail server của A, (2) email được gửi tiếp tới Mail server của B, (3) B lên server lấy email về. Mệnh đề nào Sai khi mô tả về dịch vụ thư điện tử?",
+          options: [
+            "Cả 3 bước đều phải được thực hiện ngay lập tức, nếu không cả quá trình thất bại",
+            "Bước (3) có thể không được thực hiện ngay",
+            "Hệ thống email phải thực hiện bước (1) rất nhanh trong vài giây",
+            "Hệ thống email phải thực hiện bước (2) rất nhanh trong vài giây",
+          ],
+          correct: 0,
+        },
+        {
+          text: '"Năm 2016 Google sử dụng từ 30 đến 50 ... rải rác trên khắp thế giới để xử lý các yêu cầu tìm kiếm". Đối tượng trong dấu "..." là gì?',
+          options: [
+            "Máy chủ",
+            "Mạng Client-Server",
+            "Trung tâm dữ liệu",
+            "Kiến trúc Client-Server",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mô tả nào đúng về dịch vụ Email?",
+          image: "ẢnhMMT/image001.png",
+          options: [
+            "giao thức SMTP có thể không tham gia vào (2)",
+            "giao thức SMTP không thể thực hiện (2)",
+            "IMAP được thiết kế để thực hiện toàn bộ các bước (1) (2) (3)",
+            "HTTP có thể thực hiện bước (1) và (3)",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về dịch vụ Email?",
+          image: "ẢnhMMT/image002.png",
+          options: [
+            '(1), (2) và (3) đều hoạt động theo kiểu "đẩy" email theo chiều mũi tên (trái sang phải)',
+            '(1) và (3) hoạt động theo kiểu "đẩy", còn (2) theo kiểu "kéo"',
+            "(2) có thể được thực hiện nhờ giao thức SMTP",
+            "(2) có thể thực hiện thông qua server trung gian",
+            "HTTP có thể thực hiện toàn bộ các bước (1) (2) (3)",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mô tả nào đúng về dịch vụ Email?",
+          options: [
+            "Ngày nay Webmail đang sử dụng giao thức POP3 như giao thức chủ yếu",
+            "POP3 không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
+            "HTTP không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
+            "IMAP không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
+            "Webmail yêu cầu cài đặt phần mềm User agent có bản quyền vào máy thì mới dùng được email",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về công nghệ IPTV?",
+          options: [
+            "Sử dụng đường truyền Internet công cộng",
+            "Là dịch vụ phát video theo yêu cầu (Internet Protocol Television - Truyền hình Internet)",
+            "Sử dụng đường truyền nội bộ của nhà cung cấp",
+            "Cước phí cao hơn so với OTT",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về dịch vụ OTT?",
+          options: [
+            "Là các dịch vụ được cung cấp trực tiếp tới người dùng, nhà cung cấp nội dung không thể quản lý khách hàng hay thu phí",
+            "Tên viết đầy đủ là OTT (Over the top)",
+            "Đưa tin nhanh nhạy nhưng thiếu kiểm duyệt",
+            "Hầu hết các ứng dụng OTT đều sử dụng công nghệ truyền thoại qua Internet",
+            "OTT song hành và cạnh tranh với công nghệ Truyền hình Internet IPTV",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về công nghệ VoIP?",
+          options: [
+            "Được dùng trong hầu hết các ứng dụng OTT",
+            "Hiện đang sử dụng giao thức H323",
+            "Dùng công nghệ chuyển mạch kênh của tầng Vật lý",
+            "Voice over Internet Protocol",
+            "Truyền thoại qua gói tin IP",
+          ],
+          correct: [1, 2],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về hệ thống điện thoại IP?",
+          options: [
+            "Chỉ bao gồm Máy gọi và Máy nghe, hoạt động theo kiểu ngang hàng (Peer to Peer)",
+            "Phổ biến sử dụng giao thức SIP",
+            "Tổng đài VoIP là một máy chủ trên đó chỉ cài đặt giao thức IP",
+            "Hoạt động theo mô hình Client-Server",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về hệ thống điện thoại IP?",
+          options: [
+            "Không cần sử dụng đường dây điện thoại để truyền thoại",
+            "Truyền thoại qua đường truyền mạng",
+            "Máy trạm có thể là máy điện thoại IP",
+            "Tổng đài IP là một máy chủ trên đó cài đặt phần mềm softphone",
+            "Máy trạm có thể là PC thông thường cài thêm phần mềm softphone",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Hệ thống điện thoại IP phù hợp để áp dụng cho ...",
+          options: [
+            "một công ty du lịch",
+            "phòng kỹ thuật của một công ty công nghệ",
+            "một cơ quan có nhiều chi nhánh ở các vị trí địa lý xa nhau",
+            "phòng tuyển sinh của một trường đại học",
+            "bộ phận chăm sóc khách hàng",
+          ],
+          correct: [0, 2, 3, 4],
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về mạng LAN tự cấp tự túc?",
+          options: [
+            "Mạng tự xây dựng để cung cấp những dịch vụ mà cơ quan cần thiết",
+            "Hiện nay vẫn còn được sử dụng dù nhiều nơi đã chuyển sang Cloud",
+            "Tồn tại trước khi Cloud Computing ra đời",
+            "Là bước phát triển tiếp theo của công nghệ Điện toán lưới (Grid Computing)",
+          ],
+          correct: [0, 1, 2],
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về mạng LAN tự cấp tự túc? (câu khác)",
+          options: [
+            "Tốn chi phí ban đầu + phí bảo trì, nâng cấp thường xuyên",
+            "Hiện nay mô hình này đã không còn được sử dụng nữa",
+            "Gây ra sự lãng phí tài nguyên",
+            "Mỗi cơ quan tự xây dựng dịch vụ mạng theo ý riêng => khó đảm bảo tính tương thích",
+            "Chất lượng dịch vụ cao hơn Cloud",
+          ],
+          correct: [0, 2, 3],
+        },
+        {
+          text: "Đâu là ứng dụng mạng?",
+          options: [
+            "Adobe Acrobat",
+            "MS. Excel",
+            "Gmail",
+            "Turnitin",
+            "Trình duyệt web",
+          ],
+          correct: [2, 3, 4],
+        },
+        {
+          text: "Đâu là lợi ích mà Cloud Computing đem lại?",
+          options: [
+            "Khách hàng dùng bao nhiêu thì trả bấy nhiêu",
+            "Khách hàng có thể sử dụng nhiều gói dịch vụ khác nhau: IaaS, SaaS, PaaS",
+            "Khách hàng buộc phải trả tiền thuê bao cố định hàng tháng",
+            "Khả năng điều tiết dịch vụ cho phép tự động theo dõi và điều chỉnh lượng tài nguyên theo nhu cầu thực tế của người dùng, đồng thời ghi lại để báo cáo những điều chỉnh đó cho cả nhà cung cấp và người sử dụng một cách minh bạch",
+          ],
+          correct: [0, 1, 3],
+        },
+        {
+          text: "Mô tả nào đúng về lợi ích mà Cloud Computing đem lại?",
+          options: [
+            "Hệ thống thông tin bao gồm máy chủ, các thiết bị mạng và hệ thống dữ liệu tác nghiệp đặt ở cơ quan, do bộ phận Tin học cơ hữu của cơ quan quản lý",
+            "Hệ thống cơ sở dữ liệu và phần mềm tác nghiệp được cài đặt trên máy chủ nằm ở cơ quan",
+            "Để bảo mật, nhân viên chỉ có thể truy cập vào cơ sở dữ liệu tác nghiệp từ các máy trạm nằm trong mạng LAN của cơ quan",
+            "Cho phép người dùng sử dụng dịch vụ Cloud ở bất kỳ chỗ nào miễn là có trình duyệt và Internet",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Dịch vụ IaaS cho người dùng thuê loại tài nguyên mạng nào?",
+          options: [
+            "Bộ nhớ vật lý",
+            "Máy chủ ảo",
+            "Các gói phần mềm ứng dụng",
+            "Hệ điều hành",
+            "Đường truyền mạng",
+          ],
+          correct: [1, 4],
+        },
+        {
+          text: "So sánh với việc tự trang bị và quản lý các máy chủ vật lý, công nghệ Ảo hóa ưu việt hơn ở điểm nào?",
+          options: [
+            "Nhân viên không phải bảo mật cho database",
+            "Không thể thay đổi, cài đặt lại những phần mềm trên máy chủ",
+            "Người dùng sử dụng các phần mềm tác nghiệp thuận tiện hơn",
+            "Gần như không thể bị sự cố đến mức ngừng hoạt động. Khi xảy ra sự cố thì việc phục hồi diễn ra nhanh chóng",
+          ],
+          correct: [2, 3],
+        },
+        {
+          text: "Mệnh đề nào mô tả Đúng về Trung tâm dữ liệu (Data Center)?",
+          options: [
+            "Là nơi tập trung và vận hành hệ thống máy chủ",
+            "Được đặt trong tòa nhà nơi có các khách hàng để tiện cung cấp dịch vụ cho họ",
+            "Đảm bảo nguồn cấp điện liên tục và bộ phận cung cấp điện dự phòng",
+            "Là nơi tập trung và vận hành hệ thống dữ liệu",
+          ],
+          correct: [0, 2],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về IoT?",
+          options: [
+            "Các đồ vật, thiết bị IoT có khả năng cảm nhận môi trường xung quanh nhờ được gắn thiết bị sensor",
+            "Các thiết bị IoT được kết nối Internet để giao tiếp với nhau",
+            "Thương mại điện tử là thành phần đặc thù riêng có của IoT",
+            "Giao thông thông minh, nhà thông minh là thành phần của IoT",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Hệ thống IoT hiện nay có đặc điểm nào?",
+          options: [
+            "Đa số các thiết bị trong hệ thống IoT có cấu hình yếu và cơ chế hoạt động đa dạng nên không tiện cài đặt những công cụ bảo mật. Tính bảo mật là một điểm yếu cần được khắc phục của IoT hiện nay",
+            "Mọi thiết bị trong hệ thống IoT đều có mục đích vận hành và cơ chế hoạt động giống nhau",
+            "Đa số các thiết bị trong hệ thống IoT có cấu hình tiên tiến và mạnh",
+            "Các hệ thống IoT hiện nay thường được bảo mật tốt",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về Edge computing?",
+          options: [
+            "Trong mô hình Cloud truyền thống, mọi dữ liệu phải gửi qua Internet về trung tâm tính toán, sau đó lại truyền kết quả trở về dẫn đến mất an toàn thông tin",
+            "Thực hiện việc tiền xử lý để giảm kích thước dữ liệu trước khi truyền đi",
+            "Làm giảm lượng dữ liệu cần truyền, giảm sự phụ thuộc lẫn nhau giữa các thành phần trong hệ thống bằng cách phân tải và khoanh vùng phù hợp, xử lý lỗi dữ liệu",
+            "Giúp xử lý tại chỗ một phần dữ liệu ngay tại nơi chúng được sinh ra",
+            "Không còn Data Center nữa",
+          ],
+          correct: 4,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về SDN (Software-Defined Networking)?",
+          options: [
+            "Với SDN, người quản trị mạng chỉ cần thiết lập chính sách tại trung tâm điều khiển tập trung. Chính sách đó sẽ được tự động áp dụng cho toàn mạng",
+            "Tách chức năng quản lý khỏi các thiết bị mạng để chúng tập trung vào truyền tín hiệu",
+            "Người quản trị mạng cần thiết lập cấu hình cho từng thiết bị mạng",
+            "Trong mô hình cũ trước khi có SDN, mỗi thiết bị mạng như router hay switch tự quyết định cách định tuyến gói tin",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về công nghệ Ảo hóa?",
+          options: [
+            "Với khách hàng, việc vận hành và sử dụng tài nguyên ảo không khác gì tài nguyên vật lý",
+            "Giúp gộp nhiều tài nguyên vật lý thành một tài nguyên ảo",
+            "Giúp chia nhỏ một tài nguyên thành nhiều tài nguyên ảo",
+            "Với chức năng là phân chia tài nguyên vật lý cho các máy ảo và cho phép chúng truy cập đến tài nguyên vật lý được chia, Hypervisor (phần mềm ảo hóa) là tên gọi khác của Host OS",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về Edge computing?",
+          options: [
+            "Giúp giảm thời gian truyền nhờ nén dữ liệu trước khi truyền",
+            "Xử lý tại chỗ và phản hồi ngay kết quả đối với những tác vụ đơn giản hoặc tác vụ phải được xử lý ngay lập tức",
+            "Làm mất an toàn dữ liệu do khâu tiền xử lý dữ liệu trước khi truyền",
+            "Gây ra độ trễ truyền do bước tiền xử lý dữ liệu tại nguồn trước khi đưa lên Cloud",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về Edge computing?",
+          options: [
+            "Được thiết kế với mục đích giảm bớt lưu lượng cho đường truyền Internet",
+            "Một nguyên nhân khiến cho Cloud bị quá tải là do IoT phát triển quá nhanh chóng",
+            "Là tên gọi khác của công nghệ Cloud Computing",
+            "Nhằm mục đích giảm tải cho Data Center của Cloud",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Phương thức truyền 1 trạm phát - 1 trạm thu gọi là gì?",
+          options: [
+            "Point to point",
+            "Broadcast",
+            "Multicast",
+            "Loa ống bơ",
+            "Loa phường",
+          ],
+          correct: 0,
+        },
+
+        // Lần 2 – từ tài liệu DOCX
+        {
+          text: "Mô tả nào về cổng well-know là đúng?",
+          options: [
+            "Hệ điều hành sẽ tránh không dùng",
+            "Không ứng dụng mạng nào được dùng mà dành riêng cho hệ điều hành sử dụng",
+            "Chỉ được sử dụng cho những mục đích cố định đã được quy định từ trước",
+            "Port number nằm trong khoảng từ 0 tới 65535",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào đúng khi so sánh phương pháp Chẵn lẻ cải tiến so với phương pháp Chẵn lẻ gốc?",
+          options: [
+            "Khả năng phát hiện lỗi bit đơn của phương pháp Chẵn lẻ cải tiến cao hơn",
+            "Tỷ lệ bit dự phòng thấp hơn",
+            "Tỷ lệ bit dự phòng cao hơn",
+            "Tỷ lệ bit dự phòng ngang nhau",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Nếu áp dụng phương pháp Mã khối và nhiễu tác động vào 2 bit cùng cột thì ...",
+          options: [
+            "Trạm thu phát hiện được lỗi nhờ kiểm tra cột",
+            "Trạm thu không yêu cầu phát lại",
+            "Trạm thu phát hiện được lỗi nhờ kiểm tra dòng",
+            "Trạm phát sẽ phát hiện được lỗi",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về cách phân lớp địa chỉ IP?",
+          options: [
+            "Admin căn cứ vào số lượng nhân viên của cơ quan để lựa chọn cách phân lớp địa chỉ IP",
+            "Chọn lớp địa chỉ nào cho cơ quan là nhiệm vụ của admin",
+            "Chọn lớp địa chỉ nào cho cơ quan là việc của user",
+            "Admin căn cứ vào số subnet và số máy trạm trong mỗi subnet để lựa chọn cách phân lớp địa chỉ IP",
+          ],
+          correct: [1, 3],
+        },
+        {
+          text: "Địa chỉ IP dùng để định danh ...",
+          options: ["Thiết bị vật lý", "User", "Máy tính PC", "Thiết bị mạng"],
+          correct: 3,
+        },
+        {
+          text: "Một gói tin IP chứa 1400 byte data. Giả thiết đường truyền chỉ cho phép gói tin kích thước tối đa 1000 byte. Hãy cho biết phải chia gói tin thành bao nhiêu mảnh và phần offset tương ứng của các mảnh là gì, biết rằng mỗi mảnh đều có header là 20 byte?",
+          options: [
+            "phải chia gói tin thành 3 mảnh với offset lần lượt là 0, 1000, 2000",
+            "phải chia gói tin thành 2 mảnh với offset lần lượt là 0, 980",
+            "để nguyên gói tin với offset là 1400",
+            "để nguyên gói tin với offset là 0, trường DF =1, MF = 0",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Bit chẵn lẻ của chuỗi bit gốc 0010 1001 là bao nhiêu?",
+          options: [
+            "11",
+            "Chưa xác định, còn tùy thuộc vào toán tử bit sẽ áp dụng là AND hay OR",
+            "0",
+            "1",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về IPv6?",
+          image: "",
+          options: [
+            "Những địa chỉ IP hiện hành đều là IPv4",
+            "Những địa chỉ IP hiện hành đều là IPv6",
+            "Độ dài địa chỉ là 6 byte",
+            "So với IPv4, Header của IPv6 đã lược bỏ đi một số trường, chẳng hạn Header Length",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về chức năng routing của tầng Network?",
+          options: [
+            "Có nhiều tiêu chí đánh giá tuyến đường khác nhau (ngắn nhất, rẻ nhất, an toàn nhất ...), tùy trường hợp cụ thể mà sử dụng",
+            "Do router thực hiện",
+            "Do switch thực hiện",
+            "Luôn luôn đặt mục tiêu tìm tuyến đường ngắn nhất",
+          ],
+          correct: [0, 1],
+        },
+        {
+          text: "Trong trường hợp cần truyền dữ liệu từ Trái đất tới tàu thăm dò trên sao Hỏa, phương pháp nào có thể phù hợp?",
+          options: [
+            "Phương pháp Chẵn lẻ",
+            "Phương pháp Mã khối",
+            "Phương pháp Chẵn lẻ cải tiến",
+            "Phương pháp Kiểm tra vòng (Cyclic Redundancy Check)",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Trong trường hợp cần ghi và phát hành đĩa DVD chứa phim hay học liệu điện tử, phương pháp nào là phù hợp?",
+          options: [
+            "Phương pháp Chẵn lẻ cải tiến",
+            "Phương pháp Chẵn lẻ",
+            "Phương pháp CRC (Cyclic Redundancy Check)",
+            "Phương pháp Hamming",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Kết quả hiển thị sau đây tại cửa sổ lệnh cho biết điều gì? \nC:\Users\MyPC>ipconfig /all \nEthernet adapter: \n\tPhysical Address. . . . . . . . . : B4-2E-99-76-63-3D  \n\tIPv4 Address. . . . . . . . . . . : 192.168.1.7  \n\tSubnet Mask . . . . . . . . . . . : 255.255.255.0",
+          options: [
+            "Địa chỉ IP thuộc lớp A",
+            "Địa chỉ MAC là B4-2E-99-76-63-3D",
+            "Địa chỉ IP là B4-2E-99-76-63-3D",
+            "Mặt nạ mạng là 255.0.0.0",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Địa chỉ 192.168.0.1 thuộc lớp địa chỉ nào?",
+          options: [
+            "Lớp C, subnet mask là 255.255.0.0",
+            "Lớp A, subnet mask là 255.0.0.0",
+            "Lớp B, subnet mask là 255.255.0.0",
+            "Lớp C, subnet mask là 255.255.255.0",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Địa chỉ 128. 23.20.0 thuộc lớp địa chỉ nào? ",
+          options: [
+            "Lớp C, subnet mask là 255.255.0.0",
+            "Lớp A, subnet mask là 255.0.0.0",
+            "Lớp B, subnet mask là 255.255.0.0",
+            "Lớp C, subnet mask là 255.255.255.0",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Kỹ thuật định tuyến nào không phù hợp với mạng Internet hiện nay?",
+          options: [
+            "Mỗi router phụ trách một phạm vi và thường xuyên thông báo cho các router láng giềng về phạm vi mà mình phụ trách",
+            "Static Routing",
+            "Chỉ có một trung tâm chịu trách nhiệm tìm đường cho toàn bộ các máy tính trên mạn",
+            "Gói tin sau khi rời trạm phát chỉ đi theo 1 tuyến đường định trước",
+            "Việc tìm đường chỉ được thực hiện 1 lần trước khi gói tin xuất phát",
+          ],
+          correct: [1, 2, 3, 4],
+        },
+        {
+          text: "Mô tả nào đúng về tình trạng tắc nghẽn trên mạng?",
+          options: [
+            "Số gói tin gửi lên mạng lớn hơn số gói tin tới đích ",
+            "Số gói tin gửi lên mạng nhỏ hơn số gói tin tới đích",
+            "Liên quan đến hiện tượng bottle -neek",
+            "Số gói tin gửi lên mạng bằng số gói tin tới đích",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về chức năng Tách khung tin của tầng Data link?",
+          options: [
+            "Nhằm giúp trạm phát xác định khung tin đã tới đích an toàn hay bị lỗi và phải truyền lại",
+            "Tỷ lệ bit dư thừa của phương pháp Đếm ít hơn, do đó cước phí truyền thông nhiều hơn so với phương pháp Cờ báo",
+            "Phương pháp Cờ báo có nhược điểm là khả năng dung lỗi kém so với phương pháp Đếm",
+            "Phương pháp Đếm có nhược điểm là nếu phần Header của một frame bị lỗi thì tất cả những frame từ vị trí lỗi về sau sẽ bị hỏng",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Hình sau là các bit gốc đã được xếp thành bảng và được tính bit chẵn lẻ theo phương pháp Chẵn lẻ cải tiến. Mệnh đề nào là đúng?",
+          image: "ẢnhMMT/image003.png",
+          options: [
+            "Khối bit được truyền đi theo cột",
+            "Phát hiện được mọi lỗi nhóm có chiều dài nhỏ hơn hoặc bằng 7",
+            "Bit chẵn lẻ được tính theo cột",
+            "Phát hiện được mọi lỗi nhóm có chiều dài nhỏ hơn hoặc bằng 6",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Giả sử cần truyền 2 từ máy là 11111111 11111111 và 00000000 00000000, khi đó checksum của giao thức UDP mà trạm phát tính ra là bao nhiêu?",
+          options: [
+            "00000000 00000000",
+            "11111111 00000000",
+            "11111111 11111111",
+            "00000000 11111111",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về địa chỉ IP động?",
+          options: [
+            "User tự chọn một địa chỉ IP trong kho địa chỉ do IANA cấp cho",
+            "Ban đầu được thiết kế để giải quyết vấn đề thiếu địa chỉ của IPv4",
+            "Ngày nay với không gian địa chỉ dư thừa của IPv6 thì không còn được dùng nữa",
+            "User tự chọn một địa chỉ IP",
+            "Thường được cấp phát qua cơ chế DHCP",
+          ],
+          correct: [1, 4],
+        },
+        {
+          text: "Mô tả nào đúng về cơ chế Token Bucket của tầng Network?",
+          options: [
+            "Tốc độ gửi gói tin vào Bucket là hằng số",
+            "Không sử dụng vùng đệm như cơ chế Leaky Bucket",
+            "Tốc độ trung bình gửi gói tin ra khỏi Bucket là hằng số",
+            "Tốc độ gửi gói tin ra khỏi Bucket là hằng số",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Với chuỗi bit gốc là 10110111, các bit Hamming sẽ là bao nhiêu (theo thứ tự từ phải sang trái)?",
+          options: ["0110", "1111", "Các đáp án trên đều sai", "111"],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về giao thức UDP?",
+          options: [
+            "Kích thước Header của UDP nhỏ hơn so với TCP",
+            "UDP được sử dụng bởi dịch vụ DNS vì truyền nhanh",
+            "UDP là giao thức connectionless nên không tốn thời gian để thiết lập đường truyền",
+            "UDP được sử dụng bởi dịch vụ thư điện tử (giao thức SMTP) vì truyền nhanh",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về phương pháp Chẵn lẻ của tầng Data link?",
+          options: [
+            "Không phát hiện được lỗi khi số bit lỗi là số lẻ",
+            "Bit chẵn lẻ của dãy bit gốc 0010111 là 1",
+            "Giới hạn phát hiện lỗi (Độ tin cậy) là 1",
+            "Tính ra bit chẵn lẻ bằng cách áp dụng toán tử OR đối với dãy bit gốc",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Nếu áp dụng phương pháp Mã khối và nhiễu tác động vào 2 bit cùng dòng thì …",
+          options: [
+            "Trạm thu không yêu cầu phát lại",
+            "Trạm thu chỉ phát hiện được mà không sửa được lỗi",
+            "Trạm thu phát hiện được lỗi nhờ kiểm tra dòng",
+            "Trạm phát sửa được ngay tại chỗ",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về vấn đề Cấp phát kênh của tầng con MAC?",
+          options: [
+            "CSMAC/CD là giải pháp thông dụng hiện nay để giải quyết vấn đề Cấp phát kênh trong mạng Internet",
+            "Mục tiêu của việc cấp phát kênh là giảm thiểu hiện tượng Collision",
+            "Phải tìm cách quản lý việc phát tin của các máy trạm sao cho chúng ít đụng độ nhau nhất",
+            "Nếu hai tín hiệu cùng truyền đi đến một kênh tại một thời điểm thì chúng sẽ hủy hoại lẫn nhau",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mô tả nào về Socket là sai?",
+          options: [
+            "Giúp phân biệt với các tiến trình khác trên trạm thu và trên mạng",
+            "Gồm địa chỉ IP của trạm thu và Port number của tiến trình nhận",
+            "Để giao tiếp được qua mạng, tiến trình gửi buộc phải biết socket của tiến trình nhận",
+            "Là một giá trị nguyên nằm trong khoảng từ 0 tới 65535",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về trường Time To Live của gói tin IPv4?",
+          options: [
+            "Gói tin có TTL bằng không sẽ được router ưu tiên phát trước",
+            "Đơn vị tính là hop-count",
+            "Hiện nay được tính bằng giây đồng hồ",
+            "Giúp tránh hiện tượng gói tin đi theo vòng tròn luẩn quẩn",
+            "Được tăng thêm 1 đơn vị mỗi khi gói tin đi qua 1 router",
+          ],
+          correct: [1, 3],
+        },
+        {
+          text: "Các chuẩn mạng của tầng Data link quy định về ...",
+          options: [
+            "Giao thức định tuyến",
+            "Phương pháp tách khung tin",
+            "Dịch vụ Web",
+            "Cường độ dòng điện",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Nếu áp dụng phương pháp Mã khối cho khối bit gốc gồm 3 hàng 5 cột thì Tỷ lệ bit dự phòng và Độ tin cậy (giới hạn phát hiện và sửa lỗi) lần lượt là ...",
+          options: ["8/15 và 1", "10/24 và 1", "5/20 và 3", "9/24 và 1"],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về cơ chế NAT?",
+          options: [
+            "Được thực hiện ở tầng Data link dựa trên routing table",
+            "Cho phép ẩn địa chỉ IP để bảo mật",
+            "Do router thực hiện dựa trên NAT table",
+            "Ngày nay không còn được dùng nữa",
+          ],
+          correct: [1, 2],
+        },
+        {
+          text: "Nếu áp dụng phương pháp Mã khối và nhiễu tác động vào bit ở vị trí dòng 3 cột 5 thì việc sửa lỗi sẽ tiến hành ra sao?",
+          options: [
+            "Trạm thu sẽ sửa lỗi dựa vào bit chẵn lẻ ở cột 5",
+            "Trạm phát sẽ sửa lỗi dựa vào các bit ở dòng 3 và cột 5",
+            "Trạm thu sẽ sửa lỗi dựa vào 2 bit chẵn lẻ lần lượt ở dòng 3 và cột 5",
+            "Trạm thu chỉ phát hiện lỗi mà không sửa được",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Nếu áp dụng phương pháp Chẵn lẻ cho chuỗi bit gốc 0110 1011 thì bit chẵn lẻ và tỷ lệ bit dự phòng lần lượt là ...",
+          options: ["1 và 1/9", "1 và 1/8", "0 và 1/9", "0 và 1/8"],
+          correct: 0,
+        },
+        {
+          text: "Địa chỉ 124.23.20.1 thuộc lớp địa chỉ nào?",
+          options: [
+            "Lớp A, subnet mask là 255.0.0.0",
+            "Lớp B, subnet mask là 255.255.0.0",
+            "Lớp C, subnet mask là 255.255.255.0",
+            "Lớp D, subnet mask là 255.255.0.0",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Các chuẩn mạng của tầng Mạng quy định về …",
+          options: [
+            "Thuật toán định tuyến",
+            "Dịch vụ Email",
+            "Mức điện áp",
+            "Phương pháp kiểm tra lỗi",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Nếu áp dụng phương pháp Mã khối và nhiễu tác động vào 2 bit cùng dòng thì ...",
+          options: [
+            "Trạm thu chỉ phát hiện được mà không sửa được lỗi",
+            "Trạm thu phát hiện được lỗi nhờ kiểm tra dòng",
+            "Trạm phát sửa được ngay tại chỗ",
+            "Trạm thu không yêu cầu phát lại",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về giao thức TCP?",
+          options: [
+            "Giao thức gửi thư SMTP không sử dụng TCP mà dùng UDP",
+            "Dịch vụ truyền dữ liệu tin cậy của TCP đảm bảo rằng các gói tin được truyền tới đích một cách chính xác và theo đúng thứ tự",
+            "Giống như giao thức UDP, TCP cung cấp dịch vụ truyền dữ liệu tin cậy",
+            "Nếu trạm thu kiểm tra checksum phát hiện ra lỗi thì sẽ gửi ACK cho trạm phát",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Hai thiết bị router và switch hoạt động ở các tầng nào?",
+          options: [
+            "Network - Transport",
+            "Transport- Network",
+            "Network - Physical",
+            "Network - Datalink",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Giả thiết trạm phát đang áp dụng phương pháp Đếm thuộc chức năng Tách khung tin. Nếu số 5 bị nhiễu làm sai lệch thành số 2 thì có bao nhiêu frame bị hỏng? (kèm hình)",
+          image: "ẢnhMMT/image004.png",
+          options: ["3", "Rất nhiều", "2", "1"],
+          correct: 3,
+        },
+        {
+          text: "Kết quả hiển thị sau đây tại cửa sổ lệnh cho biết điều gì? \nC:\Users\MyPC>ipconfig /all  \nEthernet adapter:  \n\tPhysical Address. . . . . . . . . : B4-2E-99-76-63-3D  \n\tIPv4 Address. . . . . . . . . . . : 192.168.1.7  \n\tSubnet Mask . . . . . . . . . . . : 255.255.255.0",
+          options: [
+            "Mặt nạ mạng là 192.168.1.7",
+            "Địa chỉ MAC là 192.168.1.7",
+            "Địa chỉ IP thuộc lớp C",
+            "Địa chỉ IP là B4-2E-99-76-63-3D",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về chức năng Tách khung tin của tầng Data link?",
+          options: [
+            "Nhằm giúp trạm phát xác định khung tin đã tới đích an toàn hay bị lỗi và phải truyền lại",
+            "Phương pháp Đếm có nhược điểm là nếu phần Header của một frame bị lỗi thì tất cả những frame từ vị trí lỗi về sau sẽ bị hỏng",
+            "Tỷ lệ bit dư thừa của phương pháp Đếm ít hơn, do đó cước phí truyền thông nhiều hơn so với phương pháp Cờ báo",
+            "Phương pháp Cờ báo có nhược điểm là khả năng dung lỗi kém so với phương pháp Đếm",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mô tả nào đúng về dịch vụ Store and Forward của tầng Network?",
+          options: [
+            "Thời gian packet nằm chờ (Store) tại router dài hơn nhiều so với thời gian nó lưu thông (Forward) trên đường truyền",
+            "Thời gian packet nằm chờ (Store) tại router ngắn hơn nhiều so với thời gian nó lưu thông (Forward) trên đường truyền",
+            "Khi tới mỗi router, packet phải dừng lại chờ tuyến đường tiếp theo hết tắc nghẽn rồi mới đi tiếp được",
+            "Khi tới mỗi router, packet phải dừng lại chờ router xử lý xong thì mới đi tiếp được",
+          ],
+          correct: [0, 3],
+        },
+        {
+          text: "Mô tả nào đúng về lệnh tracert?",
+          options: [
+            "Dùng để đánh giá một tuyến đường có tốt hay không",
+            "Gửi các gói tin với thời gian sống tăng dần",
+            "Gửi các gói tin echo để tìm đường đi tới một đích cho trước",
+            "Hiển thị các router trung gian trên đường từ host hiện tại tới trạm đích và thời gian tương ứng để gói tin đi tới router đó",
+            "Sử dụng giao thức TCP",
+          ],
+          correct: [1, 2, 3],
+        },
+        {
+          text: "Trên đường truyền các bit dữ liệu bị nhiều tác động vào làm sai lệch giá trị. Trường hợp lỗi nào có thể khiến phương pháp checksum của giao thức UDP hiểu nhầm là kết quả nhận được không có lỗi?",
+          options: [
+            "Nhiễu tác động vào bit đầu tiên của cả hai từ máy",
+            "Nhiễu chỉ tác động vào bit đầu tiên của từ máy thứ nhất",
+            "Nhiễu tác động vào bit đầu tiên của từ máy thứ nhất và bit cuối cùng của từ máy thứ hai",
+            "Nhiễu tác động vào 2 bit đầu tiên của từ máy thứ nhất",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về giao thức CSMAC/CD? ",
+          options: [
+            "Áp dụng 2 kỹ thuật “nghe trước khi nói” và “nghe trong khi nói” là đủ để triệt tiêu hoàn toàn hiện tượng Collision",
+            "Giao thức Ethernet gốc thông lượng là 10Mbps, khoảng cách truyền 2500m thì kích thước gói tin tối thiểu phải là 64Byte. Như vậy với chuẩn Fast Ethernet thông lượng là 100Mbps, khoảng cách truyền 2500m thì khích thước gói tin tối thiểu là 640Byte",
+            "Giao thức Ethernet gốc thông lượng là 10Mbps, khoảng cách truyền 2500m thì kích thước gói tin tối thiểu phải là 64Byte. Như vậy với chuẩn Fast Ethernet thông lượng là 100Mbps, khoảng cách truyền 250m thì kích thước gói tin tối thiểu phải là 6400Byte",
+            "Giao thức Ethernet gốc thông lượng là 10Mbps, khoảng cách truyền 2500m thì kích thước gói tin tối thiểu là 64Byte. Như vậy với chuẩn Giganet thông lượng là 1Gbps, khoảng cách truyền 250m thì kích thước gói tin tối thiểu là 64KB",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về giao thức FTP?",
+          options: [
+            "Viết đầy đủ là File Transfer Protocol",
+            "Sử dụng giao thức UDP",
+            "Là giao thức trao đổi tập tin qua mạng dùng giao thức TCP/IP, ví dụ như Internet",
+            "Hệ thống FTP phải có FTP Server để lưu trữ file",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Giả thiết trạm phát đang áp dụng phương pháp Đếm thuộc chức năng Tách khung tin. Con số ở vị trí dấu hỏi là bao nhiêu? (kèm hình)",
+          image: "ẢnhMMT/image005.png",
+          options: ["5", "6", "8", "7"],
+          correct: 1,
+        },
+        {
+          text: "Hình sau là các bit gốc đã được xếp thành bảng và được tính bit chẵn lẻ theo phương pháp Chẵn lẻ cải tiến. Mệnh đề nào là đúng? (hình khác)",
+          image: "ẢnhMMT/image006.png",
+          options: [
+            "Khối bit được truyền đi theo cột",
+            "Bit chẵn lẻ được tính theo dòng",
+            "Bit chẵn lẻ được tính theo cột",
+            "Trạm thu sẽ phát khối bit đi theo dòng",
+          ],
+          correct: 2,
+        },
+        {
+          text: 'Nếu áp dụng phương pháp Cờ báo với chuỗi gốc là "K, B, ESC, C, FLAG, M" thì chuỗi truyền sẽ là gì?',
+          options: [
+            "FLAG, K, B, ESC, ESC, C, ESC, FLAG, M, FLAG",
+            "FLAG, K, B, ESC, ESC, C, FLAG, ESC, M, FLAG",
+            "K, B, ESC, ESC, C, ESC, FLAG, M",
+            "FLAG, K, B, ESC, C, FLAG, M, FLAG",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Trường Total Length có vị trí từ bit 16 đến hết bit 31 trong phần Header của gói tin IPv4, vì thế độ dài tối đa của gói tin (tính theo byte) là ...",
+          options: ["16K", "31", "64K", "Các đáp án còn lại đều sai"],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về cơ chế bắt tay 3 bước (3-way handshake) của giao thức TCP?",
+          options: [
+            "Đầu tiên Trình duyệt yêu cầu thiết lập kết nối bằng cách gửi một gói SYN tới Web server",
+            "Đầu tiên Web server yêu cầu thiết lập kết nối bằng cách gửi một gói SYN tới Web Client",
+            "Đầu tiên trình duyệt yêu cầu thiết lập kết nối bằng cách gửi một gói SYN-ACK tới Client",
+            "Đầu tiên Web Client yêu cầu thiết lập kết nối bằng cách gửi một gói ACK tới server",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mô tả nào đúng về cấu trúc của gói tin IPv4?",
+          options: [
+            "Nếu một gói tin bị phân mảnh thì mỗi mảnh đều phải có trường Identification giống nhau",
+            "Trường Offset giúp trạm thu phân biệt các gói tin với nhau, tránh bị nhận lặp nhiều lần",
+            "Cờ MF (More Fragment) cho biết các router có được phép phân mảnh gói tin thành nhiều phần hay không",
+            "Cờ DF (Don't Fragment) cho biết đây có phải là mảnh cuối cùng hay không",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào đúng khi so sánh phương pháp Chẵn lẻ cải tiến với phương pháp Chẵn lẻ gốc?",
+          options: [
+            "Tỷ lệ bit dự phòng cao hơn",
+            "Cách tính bit chẵn lẻ và thứ tự phát khối bit là giống nhau",
+            "Khả năng phát hiện lỗi nhóm của phương pháp Chẵn lẻ cải tiến cao hơn",
+            "Tỷ lệ bit dự phòng thấp hơn",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Kết quả phép XOR khi thực hiện trên một chuỗi bit ...",
+          options: [
+            "bằng 0 nếu số bit 0 trong chuỗi là số lẻ",
+            "phụ thuộc vào số lượng bit 0",
+            "bằng 1 nếu số bit 1 trong chuỗi là số chẵn",
+            "bằng 1 nếu số bit 1 trong chuỗi là số lẻ",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Chức năng của Router là ...",
+          options: [
+            "Thực hiện việc tách khung tin",
+            "Kiểm tra tính sẵn sàng của trạm thu và trạm phát trước khi truyền",
+            "Tách khung tin",
+            "Gửi gói tin đi theo tuyến đường tốt nhất căn cứ vào địa chỉ nhận ghi trong Header của gói tin",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về phương pháp Mã khối của tầng Data link?",
+          options: [
+            "Không phát hiện được khi số bit lỗi là 2",
+            "Không sửa được nhưng chắc chắn phát hiện được khi có 4 bit lỗi",
+            "Không sửa được khi số bit lỗi lớn hơn 1",
+            "Thuộc loại phương pháp Error Detection, nếu phát hiện lỗi thì phải yêu cầu trạm phát gửi lại",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mô tả nào Sai về IPv6?",
+          options: [
+            "Vẫn giữ trường Header checksum như IPv4",
+            "Header có độ dài cố định",
+            "Không gian địa chỉ lớn hơn IPv4",
+            "So với IPv4, Header của IPv6 đã bổ sung thêm một số trường",
+            "Độ dài địa chỉ là 128 bit",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mô tả nào đúng về thiết bị Router?",
+          options: [
+            "Không có Operating System",
+            "Có routing table",
+            "Thực hiện chức năng Firewall theo những quy tắc do admin đặt ra",
+            "Không có bộ xử lý trung tâm",
+            "Chỉ có vùng nhớ đệm, không có RAM",
+          ],
+          correct: [1, 2],
+        },
+        {
+          text: "Mô tả nào đúng về cơ chế Leaky Bucket của tầng Network?",
+          options: [
+            "Kết quả là gói tin không bị thất lạc nhưng đường truyền mạng có thể bị tắc nghẽn",
+            "Tốc độ gửi gói tin vào Bucket là hằng số",
+            "Sử dụng bộ nhớ đệm để khiến cho tốc độ máy trạm gửi gói tin lên mạng trở thành hằng số",
+            "Tốc độ gửi gói tin ra khỏi Bucket là hằng số",
+            "Kết quả là đường truyền mạng không bị tắc nghẽn, nhưng một số gói tin có thể bị thất lạc",
+          ],
+          correct: [1, 2, 4],
+        },
+        {
+          text: "Địa chỉ 128. 23.20.0 thuộc lớp địa chỉ nào?",
+          options: [
+            "Lớp B, subnet mask là 255.255.0.0",
+            "Lớp A, subnet mask là 255.0.0.0",
+            "Lớp C, subnet mask là 255.255.0.0",
+            "Lớp C, subnet mask là 255.255.255.0",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Các chuẩn mạng của tầng Mạng quy định về ...",
+          options: [
+            "Phương pháp kiểm tra lỗi",
+            "Dịch vụ Email",
+            "Mức điện áp",
+            "Thuật toán định tuyến",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về chức năng routing của tầng Network?",
+          options: [
+            "Chiều dài tuyến đường đo bằng băng thông của đường truyền",
+            "Chiều dài tuyến đường đo bằng số lượng router mà gói tin phải đi qua trên tuyến đường đó",
+            "Chiều dài tuyến đường đo bằng km",
+            "Vì thời gian router xử lý gói tin lớn hơn nhiều so với thời gian gói tin truyền trên đường truyền nên chiều dài tuyến đường được đo bằng hop-count",
+          ],
+          correct: [1, 3],
+        },
+        {
+          text: "Các chuẩn mạng của tầng Data link quy định về ...",
+          options: [
+            "Địa chỉ IP",
+            "Giao thức hướng kết nối và phi kết nối",
+            "Kích thước, vị trí, thứ tự chân cắm vào thiết bị mạng",
+            "Phương pháp tách khung tin, địa chỉ MAC",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng khi xảy ra tình trạng tắc nghẽn mạng?",
+          options: [
+            "Liên quan đến hiện tượng bottle-neck",
+            "Số gói tin gửi lên mạng bằng số gói tin tới đích",
+            "Số gói tin gửi lên mạng lớn hơn số gói tin tới đích",
+            "Số gói tin gửi lên mạng nhỏ hơn số gói tin tới đích",
+          ],
+          correct: [0, 2],
+        },
+        {
+          text: "Giả sử cần truyền 3 từ-máy sau đây bằng giao thức UDP: \n\t1001011001101011; 0101110000101101; 1001011001101010. \nHãy tính xem trường checksum là bao nhiêu.",
+          options: [
+            "Cả ba đáp án trên đều sai",
+            "0111.0110.1111.1101",
+            "0101.1100.0010.1100",
+            "1000.1001.0000.0010",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mô tả nào về Subnet mask là đúng?",
+          options: [
+            "Thực hiện phép AND với một địa chỉ mạng để tìm ra Net ID của địa chỉ đó",
+            "Các bit ở Net ID đều là 0, ở Host ID đều là 1",
+            "Các bit ở Net ID đều là 0, ở Host ID đều là 0",
+            "Thực hiện phép AND với một địa chỉ mạng để tìm ra Host ID của địa chỉ đó",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Mệnh đề nào đúng khi so sánh phương pháp Chẵn lẻ cải tiến với phương pháp Chẵn lẻ gốc? (câu khác)",
+          options: [
+            "Thứ tự phát khối bit giống nhau",
+            "Cách tính bit chẵn lẻ giống nhau",
+            "Phương pháp Chẵn lẻ cải tiến có thể đối phó với lỗi nhóm độ dài N bằng cách xếp các bit thành N cột rồi phát đi theo dòng. Phương pháp Chẵn lẻ gốc không đối phó được với lỗi nhóm",
+            "Tỷ lệ bit dự phòng cao hơn",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào mô tả Sai về cơ chế NAT?",
+          options: [
+            "Ban đầu được thiết kế để giải quyết vấn đề thiếu địa chỉ của IPv4",
+            "Là cơ chế chuyển đổi địa chỉ",
+            "Network Address Translation",
+            "Network Advanced Translation",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào mô tả Sai về địa chỉ loopback?",
+          options: [
+            "Net ID phải là 127",
+            "Không được gán cho trạm phát và trạm thu",
+            "127.0.0.1 là địa chỉ loopback",
+            "Giúp gói tin không bị gửi vào vòng lặp vô hạn",
+            "Khi gửi gói tin tới địa chỉ loopback thì gói tin sẽ không ra khỏi máy",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Việc tính checksum của giao thức TCP tại trạm thu diễn ra như thế nào?",
+          options: [
+            "Cộng các từ máy nhận được, bao gồm cả checksum",
+            "Cộng các từ máy nhận được, không kể checksum",
+            "Làm phép AND với các từ máy nhận được, không kể checksum",
+            "Làm phép OR với các từ máy nhận được, không kể checksum",
+          ],
+          correct: 0,
+        },
+        {
+          text: "Kỹ thuật định tuyến nào không phù hợp với mạng Internet hiện nay?",
+          options: [
+            "Chỉ có một trung tâm chịu trách nhiệm tìm đường cho toàn bộ các máy tính trên mạng",
+            "Gói tin sau khi rời trạm phát chỉ đi theo 1 tuyến đường định trước",
+            "Mỗi router phụ trách một phạm vi và thường xuyên thông báo cho các router láng giềng về phạm vi mà mình phụ trách",
+            "Việc tìm đường chỉ được thực hiện 1 lần trước khi gói tin xuất phát",
+            "Static Routing",
+          ],
+          correct: [0, 1, 3, 4],
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về thiết bị switch",
+          options: [
+            "Hoạt động ở tầng network",
+            "Hoạt động trong lược đồ hình sao",
+            "Chi phát tín hiệu ra một cổng duy nhất được lựa chọn ngẫu nhiên",
+            "Giúp là tăng hiện tượng collision",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về giao thức CSMA/CD",
+          options: [
+            "Áp dụng kĩ thuật “nghe trước khi nói” và “nghe trong khi nói” là đủ triệt để hoàn toàn hiện tượng Collision",
+            "Giao thức Enthernet gốc thường… 640 byte",
+            "Giao thức Enthernet gốc thường là 10Mps, khoảng cách truyền 2500m thì kích thước gói tin tối thiểu phải là 64 byte … 6400 byte",
+          ],
+          correct: 1,
+        },
+        {
+          text: "Mệnh đề nào sai khi mô tả vấn đề cấp phát kênh của tầng con MAC",
+          options: [
+            "CSMA/CD là giải pháp thông dụng hiện nay để giải quyết vấn đề",
+            "Mục đích của việc cấp phát kênh là để giảm thiểu collision",
+            "Phải tìm cách quản lý việc phát tin của máy trạm sao cho chúng ít đụng độ nhau",
+            "Nếu hai tín hiệu cùng truyền đi trên một kênh tại một thời điểm thì chúng sẽ hủy hoại lần nhau",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về chức năng Phát hiện và sửa lỗi của tầng Data link?",
+          options: [
+            "Lỗi được sinh ra theo quy luật biết trước",
+            "Thông thường tỷ lệ bit dự phòng của một phương pháp càng lớn thì khả năng phát hiện và sửa lỗi của phương pháp đó càng kém",
+            "Giới hạn phát hiện lỗi của phương pháp Mã khối cao hơn phương pháp Chẵn lẻ cải tiến",
+            "Tỷ lệ bit dự phòng của phương pháp Mã khối thấp hơn phương pháp Chẵn lẻ",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Các chuẩn mạng của tầng Giao vận quy định về ...",
+          options: [
+            "Hệ thống tên miền DNS",
+            "Giao thức định tuyến",
+            "Cơ chế dồn và phân kênh để các tiến trình của tầng Ứng dụng có thể giao tiếp với nhau qua mạng",
+            "Phương pháp tách khung tin",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào sai?",
+          options: [
+            "Switch sử dụng phương thức truyền Point to point",
+            "Phương thức truyền Broadcast làm tăng khả năng xảy ra Collison",
+            "Phương thức truyền Point to point hạn chế khả năng xảy ra Collison",
+            "Hub sử dụng phương thức truyền Point to point",
+          ],
+          correct: 3, explanation: "=> Hub sử dụng các phương thức Ethernet, Token Ring, FDDI (không phải point-to-point)",
+        },
+        {
+          text: "Đâu là ứng dụng mạng?",
+          options: [
+            "Gmail",
+            "Turnitin",
+            "Adobe Acrobat",
+            "MS.Excel",
+            "Trình duyệt web",
+          ],
+          correct: [0, 1, 4],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về hệ thống phân giải tên miền DNS?",
+          options: [
+            "Viết tắt là DNS, viết đầy đủ là Domain Name System",
+            "Vì địa chỉ IP dài và khó nhớ nên cần phải có DNS",
+            "Vì tên miền dài và khó nhớ nên cần phải có DNS để dịch",
+            "Có nhiệm vụ chuyển đổi tên miền sang địa chỉ IP tương ứng và ngược lại",
+          ],
+          correct: 2,
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về Edge computing?",
+          options: [
+            "Làm giảm lượng dữ liệu cần truyền, giảm sự phụ thuộc lẫn nhau giữa các thành phần trong hệ thống bằng cách phân tải và khoanh vùng phù hợp, xử lý lỗi dữ liệu.",
+            "Thực hiện việc tiền xử lý để giảm kích thước dữ liệu trước khi truyền đi",
+            "Trong mô hình Cloud truyền thống mọi dữ liệu phải gửi qua Internet về trung tâm tính toán, sau đó lại truyền kết quả trở về dẫn đến mất an toàn thông tin",
+            "Không còn Data Center nữa",
+            "Giúp xử lý tại chỗ một phần dữ liệu ngay tại nơi chúng được sinh ra",
+          ],
+          correct: 3, explanation: "Edge computing vẫn có Data Center, chỉ phân tán",
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về Edge Computing?",
+          options: [
+            "Làm mất an toàn dữ liệu do khâu tiền xử lý dữ liệu trước khi truyền",
+            "Gây ra độ trễ truyền do bước tiền xử lý dữ liệu tại nguồn trước khi đưa lên Cloud",
+            "Xử lý tại chỗ và phản hồi ngay kết quả đối với những tác vụ đơn giản hoặc tác vụ phải được xử lý ngay lập tức",
+            "Giúp giảm thời gian truyền nhờ nén dữ liệu trước khi truyền",
+          ],
+          correct: 0, explanation: "Edge không làm mất an toàn dữ liệu",
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về hệ thống điện thoại IP?",
+          options: [
+            "Tổng đài VoIP là một máy chủ trên đó chỉ cài đặt giao thức IP",
+            "Phổ biến sử dụng giao thức SIP",
+            "Hoạt động theo mô hình Client-Server",
+            "Chỉ bao gồm Máy gọi và Máy nghe, hoạt động theo kiểu ngang hàng (Peer to Peer)",
+          ],
+          correct: 3, explanation: "Điện thoại IP hoạt động theo client-server, không phải peer-to-peer thuần túy",
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả HTTP?",
+          options: [
+            "HTTP Client chính là Web browser chạy trên máy của User",
+            "HTTP Client gửi thông điệp yêu cầu một nội dung nào đó (file HTML, ảnh, video …) sau đó HTTP server gửi trả lại một thông điệp chứa đối tượng được yêu cầu",
+            "Hiện nay HTTP chủ yếu sử dụng UDP thay vì TCP",
+            "Cổng mặc định là 80, nhưng lập trình viên có thể chọn cổng khác",
+          ],
+          correct: 2, explanation: "HTTP dùng TCP, không dùng UDP",
+        },
+        {
+          text: "Mô tả nào đúng về dịch vụ Email?",
+          image: "ẢnhMMT/image002.png",
+          options: [
+            "Giao thức SMTP không thể thực hiện (2)",
+            "IMAP được thiết kế để thực hiện toàn bộ các bước (1) (2) (3)",
+            "HTTP có thể thực hiện bước (1) và (3)",
+            "Giao thức SMTP có thể không tham gia vào (2)",
+          ],
+          correct: 2, explanation: "HTTP (webmail) có thể thực hiện bước (1) và (3)",
+        },
+        {
+          text: "Mệnh đề nào mô tả đúng về VPN?",
+          options: [
+            "Phù hợp với các trường học, bệnh viện",
+            "Dùng đường truyền công cộng để truyền thông tin cần bảo mật",
+            "Dùng một giao thức mã hóa nào đó để bảo mật thông tin",
+            "Không có đường truyền mạng",
+          ],
+          correct: [0, 2],
+        },
+        {
+          text: 'Trong tên miền "hnue.edu.vn" của trường Đại học Sư phạm Hà Nội, ".vn" là tên miền ở cấp nào?',
+          options: ["Generic TLD", "gTLD", "Top Level", "Country Code TLD"],
+          correct: 3, explanation: ".vn là Country Code TLD",
+        },
+        {
+          text: "Đâu là lợi ích mà Cloud Computing đem lại?",
+          options: [
+            "Khách hàng có thể sử dụng nhiều gói dịch vụ khác nhau: IaaS, SaaS, PaaS",
+            "Khách hàng buộc phải trả tiền thuê bao cố định hàng tháng",
+            "Khả năng điều tiết dịch vụ cho phép tự động theo dõi và điều chỉnh lượng tài nguyên theo nhu cầu thực tế của người dùng, đồng thời ghi lại để báo cáo những điều chỉnh đó cho cả nhà cung cấp và người sử dụng một cách minh bạch",
+            "Khách hàng dùng bao nhiêu thì trả bấy nhiêu",
+          ],
+          correct: [0, 2, 3],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về RFC?",
+          options: [
+            "Là kho tài liệu kỹ thuật mô tả về những chuẩn mạng",
+            "Viết đầy đủ là Request for Comments",
+            "Được quản lý bởi tổ chức IETF",
+            "Tài liệu được lưu trữ dưới dạng file văn bản .doc hoặc .pdf",
+          ],
+          correct: 3, explanation: "RFC là plain text, không phải .doc hay .pdf",
+        },
+        {
+          text: "Mô tả nào đúng về công nghệ IEEE 802.5?",
+          options: [
+            "Sử dụng đồng thời hai lược đồ là Bus và Star",
+            "Sử dụng giao thức Token Ring để tránh hiện tượng Collision",
+            "Khả năng chịu lỗi tốt, dễ bảo trì",
+            "Sử dụng thiết bị MAU để tránh xung đột",
+            "Tại mỗi thời điểm chỉ có một máy trạm được quyền phát tin, do đó làm tăng khả năng chịu lỗi và dễ bảo trì",
+            "Sử dụng đồng thời hai lược đồ là Ring và Star",
+          ],
+          correct: [2, 3, 4, 5],
+        },
+        {
+          text: "Mô tả nào đúng về cặp thông điệp của HTTP?",
+          options: [
+            "HTTP Response do Web browser phát đi",
+            "Có tên là Recursive Query và Response Query",
+            "Là thông điệp tồn tại dưới dạng văn bản, được mã hóa bằng bộ mã Unicode",
+            "Thông tin trả lời cho yêu cầu của user nằm trong trường Message của thông điệp HTTP Request",
+            "Thông điệp HTTP Request chứa nội dung thông tin trả lời cho yêu cầu của user, do đó có kích thước lớn hơn thông điệp HTTP Response",
+            "HTTP Request do Web server gửi đi",
+            "Tồn tại dưới dạng văn bản ASCII",
+            "Bao gồm nhiều dòng kết thúc bởi ký tự Carriage Return (LF, 13h)",
+          ],
+          correct: 6, explanation: "Tồn tại dưới dạng văn bản ASCII",
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về công nghệ VoIP?",
+          options: [
+            "Được dùng trong hầu hết các ứng dụng OTT",
+            "Voice over Internet Protocol",
+            "Dùng công nghệ chuyển mạch kênh của tầng Vật lý",
+            "Truyền thoại qua gói tin IP",
+            "Hiện đang sử dụng giao thức H323",
+          ],
+          correct: [2, 4], // VoIP dùng chuyển mạch gói, không phải chuyển mạch kênh
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về IoT?",
+          options: [
+            "Các thiết bị IoT được kết nối Internet để giao tiếp với nhau",
+            "Thương mại điện tử là thành phần đặc thù riêng có của IoT",
+            "Giao thông thông minh, nhà thông minh là thành phần của IoT",
+            "Các đồ vật, thiết bị IoT có khả năng cảm nhận môi trường xung quanh nhờ được gắn thiết bị sensor",
+          ],
+          correct: 1, explanation: "Thương mại điện tử không phải riêng của IoT",
+        },
+        {
+          text: "So sánh với việc tự trang bị và quản lý các máy chủ vật lý, công nghệ Ảo hóa ưu việt hơn ở điểm nào?",
+          options: [
+            "Không thể thay đổi, cài đặt lại những phần mềm trên máy chủ",
+            "Người dùng sử dụng các phần mềm tác nghiệp thuận tiện hơn",
+            "Gần như không thể bị sự cố đến mức ngừng hoạt động. Khi xảy ra sự cố thì việc phục hồi diễn ra nhanh chóng",
+            "Nhân viên không phải bảo mật cho database",
+          ],
+          correct: [1, 2], // ưu việt: thuận tiện, phục hồi nhanh
+        },
+        {
+          text: "Mệnh đề nào sai khi mô tả về Edge computing?",
+          options: [
+            "Được thiết kế với mục đích giảm bớt lưu lượng cho đường truyền Internet",
+            "Là tên gọi khác của công nghệ Cloud Computing",
+            "Nhằm mục đích giảm tải các Data Center của Cloud",
+            "Một nguyên nhân khiến cho Cloud bị quá tải là do IoT phát triển quá nhanh chóng",
+          ],
+          correct: 1, explanation: "Edge không phải là Cloud",
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về dịch vụ thư điện tử?",
+          options: [
+            "IMAP yêu cầu phải có kết nối Internet mới xem được nội dung email",
+            "Khi đĩa cứng của máy PC cá nhân bị hỏng, nếu dùng IMAP thì sẽ không bị mất bức thư nào còn nếu dùng POP3 thì có thể bị mất",
+            "Giao thức IMAP đã bị lạc hậu và được thay thế bởi POP3",
+            "POP3 cho phép xem email ngay cả khi không có kết nối Internet",
+          ],
+          correct: 2, explanation: "IMAP không lạc hậu, POP3 không thay thế",
+        },
+        {
+          text: "Đâu là tên của một giao thức?",
+          options: [
+            "Token Ring",
+            "VPN",
+            "IPSec",
+            "Protocol",
+            "Token Passing",
+            "Topo",
+          ],
+          correct: [0, 2], // Token Ring và IPSec là giao thức
+        },
+        {
+          text: "Mô tả nào đúng về lợi ích của Cloud Computing đem lại?",
+          options: [
+            "Cho phép người dùng sử dụng dịch vụ Cloud ở bất kỳ chỗ nào miễn là có trình duyệt và Internet",
+            "Để bảo mật, nhân viên chỉ có thể truy cập vào cơ sở dữ liệu tác nghiệp từ các máy trạm nằm trong mạng LAN của cơ quan",
+            "Hệ thống thông tin bao gồm máy chủ, các thiết bị mạng và hệ thống dữ liệu tác nghiệp đặt ở cơ quan, do bộ phận Tin học cơ hữu của cơ quan quản lý",
+            "Hệ thống cơ sở dữ liệu và phần mềm tác nghiệp được cài đặt trên máy chủ nằm ở cơ quan",
+          ],
+          correct: 0, explanation: "Cloud cho phép truy cập từ xa qua Internet",
+        },
+        {
+          text: "Đâu là tài nguyên mạng?",
+          options: ["MS.Word", "Camera số", "Zalo", "Keyboard", "Scanner"],
+          correct: [1, 2, 4],
+        },
+        {
+          text: "Mô tả nào đúng về hiện tượng Collision?",
+          options: [
+            "Xảy ra khi có từ 2 tín hiệu trở lên cùng truyền đi trên đường truyền",
+            "Xảy ra càng nhiều thì hiệu suất mạng càng cao",
+            "Xảy ra khi có từ 2 máy trạm trở lên cùng phát tin lên đường truyền",
+            "Chỉ xảy ra trên lược đồ Bus mà thôi",
+            "Là hiện tượng có hại",
+          ],
+          correct: [0, 2, 4],
+        },
+        {
+          text: 'Trong tên miền "hnue.edu.vn", ".edu" không phải là tên miền ở cấp nào?',
+          options: ["Generic TLD", "gTLD", "Tên miền cấp hai", "Top Level"],
+          correct: 2,
+        },
+        {
+          text: "“Năm 2016 Google sử dụng từ 30 đến 50 … rải rác trên khắp thế giới để xử lý các yêu cầu tìm kiếm”. Đối tượng trong dấu “…” là gì?",
+          options: [
+            "Trung tâm dữ liệu",
+            "Kiến trúc Client-Server",
+            "Máy chủ",
+            "Mạng Client-Server",
+          ],
+          correct: 0, explanation: "Trung tâm dữ liệu",
+        },
+        {
+          text: "HTTP 1.1 hoạt động theo kiểu nào?",
+          options: [
+            "File cookie được tạo ra để ghi nhớ các thông tin trạng thái",
+            "Sau khi hủy kết nối từ client và server không còn lưu trữ thông tin trạng thái nào về phiên kết nối",
+            "Stateless (ghi nhớ thông tin trạng thái)",
+            "File cookie được tạo ra để chống lại mã độc",
+            "File cookie được tạo ra để giúp user truy cập Web nhanh và tiện lợi hơn",
+          ],
+          correct: [0, 1, 4],
+        },
+        {
+          text: "HTTP 1.1 và HTTP 2 hoạt động theo kiểu …",
+          options: [
+            "Sử dụng chế độ truyền Persistent Connection (kết nối tạm thời)",
+            "Mỗi kết nối từ Client đến Server chỉ để truyền một cặp thông điệp",
+            "Truyền các thông điệp chỉ bằng một kết nối duy nhất",
+            "Tiết kiệm thời gian truyền bằng cách sử dụng chế độ connectionless",
+            "Sử dụng chế độ connectionless như HTTP 1.0",
+          ],
+          correct: 2, explanation: "Persistent connection, dùng một kết nối cho nhiều request",
+        },
+        {
+          text: "Mệnh đề nào mô tả Đúng về Trung tâm dữ liệu (Data Center)?",
+          options: [
+            "Là nơi tập trung và vận hành hệ thống máy chủ",
+            "Là nơi tập trung và vận hành hệ thống dữ liệu",
+            "Được đặt trong tòa nhà nơi có các khách hàng để tiện cung cấp dịch vụ cho họ",
+            "Đảm bảo nguồn cấp điện liên tục và bộ phận cung cấp điện dự phòng",
+          ],
+          correct: [0, 3],
+        },
+        {
+          text: "Trong trường hợp cần ghi và phát hành đĩa DVD chứa phim hay học liệu điện tử, phương pháp nào là phù hợp?",
+          options: [
+            "Phương pháp Chẵn lẻ",
+            "Phương pháp Chẵn lẻ cải tiến ",
+            "Phương pháp CRC (Cyclic Redundancy Check) ",
+            "Phương pháp Hamming",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Mô tả nào đúng về cơ chế Token Bucket của tầng Network?",
+          options: [
+            "Tốc độ gửi gói tin ra khỏi Bucket là hằng số",
+            "Không sử dụng vùng đệm như cơ chế Leaky Bucket",
+            "Tốc độ gửi gói tin vào Bucket là hằng số",
+            "Tốc độ trung bình gửi gói tin ra khỏi Bucket là hằng số",
+          ],
+          correct: 3,
+        },
+        {
+          text: "Phương thức truyền 1 trạm phát – 1 trạm thu gọi là gì?",
+          options: [
+            "Broadcast",
+            "Loa phường",
+            "Loa ống bơ",
+            "Multicast",
+            "Point to point",
+          ],
+          correct: 4, explanation: "Point to point",
+        },
+        {
+          text: "Mô tả nào đúng về HTTP 1.0?",
+          options: [
+            "Hoạt động theo kiểu connection",
+            "Sau khi Web server gửi xong thông điệp Response thì sẽ hủy kết nối tới Client",
+            "Sử dụng giao thức UDP ở tầng dưới",
+            "Sau khi Web browser gửi xong thông điệp Request thì sẽ hủy kết nối tới Web server",
+          ],
+          correct: 1, explanation: "HTTP 1.0 đóng kết nối sau mỗi response",
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về công nghệ IPTV?",
+          image: "",
+          options: [
+            "Là dịch vụ phát video theo yêu cầu (Internet Protocol Television – Truyền hình Internet)",
+            "Sử dụng đường truyền nội bộ của nhà cung cấp",
+            "Sử dụng đường truyền Internet công cộng",
+            "Cước phí cao hơn so với OTT",
+          ],
+          correct: 2, explanation: "IPTV dùng mạng riêng, không dùng Internet công cộng",
+        },
+        {
+          text: "Mô tả nào đúng về dịch vụ Email? (POP3, IMAP, HTTP)",
+          options: [
+            "POP3 không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
+            "HTTP không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
+            "Webmail yêu cầu cài đặt phần mềm User agent có bản quyền vào máy thì mới dùng được email",
+            "IMAP không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
+            "Ngày nay Webmail được sử dụng giao thức POP3 như giao thức chủ yếu",
+          ],
+          correct: 0, explanation: "POP3 thiếu các tính năng quản lý thư trên server",
+        },
+        {
+          text: "Mệnh đề nào đúng khi mô tả về Hub và Switch?",
+          options: [
+            "Switch ghi nhớ địa chỉ MAC của những thiết bị kết nối với các cổng",
+            "Khi nhận được gói tin từ một trạm phát, Hub chỉ phát vào cổng đang nối với trạm thu",
+            "So với Hub, Switch làm tăng xung đột và làm giảm hiệu suất mạng",
+            "Hub biết chính xác địa chỉ MAC nào đang kết nối với cổng máy",
+            "Switch hạn chế xung đột bằng cách chỉ phát gói tin tới duy nhất 1 cổng gắn với trạm thu",
+          ],
+          correct: [0, 4], // Switch có bảng MAC, phát đúng cổng
+        },
+        {
+          text: "Hệ thống điện thoại IP phù hợp để áp dụng cho …",
+          options: [
+            "Bộ phận chăm sóc khách hàng",
+            "Phòng tuyển sinh của một trường đại học",
+            "Phòng kỹ thuật của một công ty công nghệ",
+            "Một cơ quan có nhiều chi nhánh ở các vị trí địa lý xa nhau",
+            "Một công ty du lịch",
+          ],
+          correct: [0, 3, 4],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về công nghệ Ảo hóa?",
+          options: [
+            "Với chức năng là phân chia tài nguyên vật lý cho các máy ảo và cho phép chúng truy cập đến tài nguyên vật lý được chia, Hypervisor (phần mềm ảo hóa) là tên gọi khác của Host OS",
+            "Giúp gộp nhiều tài nguyên vật lý thành một tài nguyên ảo",
+            "Với khách hàng, việc vận hành và sử dụng tài nguyên ảo không khác gì tài nguyên vật lý",
+            "Giúp chia nhỏ một tài nguyên thành nhiều tài nguyên ảo",
+          ],
+          correct: 0, explanation: "Hypervisor không phải Host OS",
+        },
+        {
+          text: "Mô tả nào đúng về lược đồ Hình sao?",
+          options: [
+            "Khả năng chịu lỗi thấp hơn lược đồ Bus",
+            "Khó bảo trì, khó tìm ra chỗ cáp bị đứt",
+            "Nếu cáp đứt tại một vị trí thì toàn mạng sẽ mất kết nối",
+            "Trong lúc sửa chữa thì toàn mạng không hoạt động",
+            "Sử dụng Switch (Hub) làm thiết bị đấu nối trung tâm",
+          ],
+          correct: 4, explanation: "Hình sao dùng hub/switch trung tâm",
+        },
+        {
+          text: "Mô tả nào đúng về Mô hình mạng?",
+          options: [
+            "Giúp người dùng có thể lựa chọn sản phẩm từ nhiều nhà sản xuất",
+            "Làm cho một hệ thống mạng không thể bao gồm sản phẩm từ nhiều nhà sản xuất khác nhau",
+            "Nhằm mục đích làm cho sản phẩm mạng của các công ty đều giống nhau",
+            "Nhằm mục đích làm cho sản phẩm mạng của các công ty tương thích với nhau",
+            "Nhằm mục đích làm cho sản phẩm mạng của các công ty dễ dàng cạnh tranh với nhau",
+          ],
+          correct: [0, 3, 4],
+        },
+        {
+          text: "Mệnh đề nào Sai khi mô tả về dịch vụ OTT?",
+          options: [
+            "Hầu hết các ứng dụng OTT đều sử dụng công nghệ VoIP hay video streaming để truyền âm thanh, video",
+            "Bao gồm các dịch vụ như tin nhắn, gọi điện thoại, truyền hình, xem phim",
+            "Tên viết đầy đủ là Over Top Transmission",
+            "Là các dịch vụ được cung cấp trực tiếp tới người dùng, nhà cung cấp đường truyền mạng không thể quản lý nội dung hay thu phí",
+          ],
+          correct: 2, explanation: "OTT là Over The Top, không phải Over Top Transmission",
+        },
+        {
+          text: "Dịch vụ IaaS cho người dùng thuê loại tài nguyên nào?",
+          options: [
+            "Hệ điều hành",
+            "Máy chủ ảo",
+            "Bộ nhớ vật lý",
+            "Đường truyền mạng",
+            "Các gói phần mềm ứng dụng",
+          ],
+          correct: [1, 3], // IaaS: máy chủ ảo, mạng
+        },
+        {
+          text: "Nếu trình duyệt trên Client cần tìm địa chỉ DNS ứng với một địa chỉ IP nào đó thì nó sẽ gửi thông điệp DNS query cho …",
+          options: [
+            "Mail server",
+            "FTP server",
+            "DNS server (còn gọi là Name server)",
+            "HTTP server",
+          ],
+          correct: 2, explanation: "DNS server",
+        },
+        {
+          text: "Mô tả nào đúng về thiết bị Router?",
+          options: [
+            "Thực hiện chức năng Firewall theo những quy tắc do admin đặt ra",
+            "Không có Operating System",
+            "Không có bộ xử lý trung tâm",
+            "Chỉ có vùng nhớ đệm, không có RAM",
+            "Có routing table (bảng định tuyến)",
+          ],
+          correct: 4, explanation: "Router có routing table và có thể có firewall",
+        },
+        {
+          text: "Trường Total Length có vị trí từ bit 16 đến hết bit 31 trong phần Header của gói tin IPv4, vì thế độ dài tối đa của gói tin (tính theo byte) là ...",
+          options: ["31", "64K", "16K", "Các đáp án còn lại đều sai"],
+          correct: 1, explanation: "2^16 = 65535 bytes ≈ 64KB",
+        },
+        {
+          text: "Mô tả nào đúng về cơ chế Leaky Bucket của tầng Network?",
+          options: [
+            "Kết quả là gói tin không bị thất lạc nhưng đường truyền mạng có thể bị tắc nghẽn",
+            "Tốc độ gửi gói tin ra khỏi Bucket là hằng số",
+            "Kết quả là đường truyền mạng không bị tắc nghẽn, nhưng một số gói tin có thể bị thất lạc",
+            "Tốc độ gửi gói tin vào Bucket là hằng số",
+            "Sử dụng bộ nhớ đệm để khiến cho tốc độ máy trạm gửi gói tin lên mạng trở thành hằng số",
+          ],
+          correct: [1, 2, 4], // Leaky bucket: tốc độ ra hằng số, dùng bộ đệm
+        },
+        {
+          text: "Mệnh đề nào mô tả Sai về cơ chế NAT?",
+          options: [
+            "Là cơ chế chuyển đổi địa chỉ",
+            "Network Advanced Translation",
+            "Ban đầu được thiết kế để giải quyết vấn đề thiếu địa chỉ của IPv4",
+            "Network Address Translation",
+          ],
+          correct: 1, explanation: "NAT là Network Address Translation, không phải Advanced",
+        },
+        {
+          text: "Kết quả hiển thị sau đây tại cửa sổ lệnh cho biết điều gì? \nC:\Users\MyPC>ipconfig /all  \nEthernet adapter:  \nPhysical Address. . . . . . . . . : B4-2E-99-76-63-3D  \nIPv4 Address. . . . . . . . . . . : 192.168.1.7  \nSubnet Mask . . . . . . . . . . . : 255.255.255.0",
+          options: [
+            "Địa chỉ IP là B4-2E-99-76-63-3D",
+            "Địa chỉ MAC là B4-2E-99-76-63-3D",
+            "Địa chỉ IP thuộc lớp A",
+            "Mặt nạ mạng là 255.0.0.0",
+          ],
+          correct: 1, explanation: "Physical Address là địa chỉ MAC",
+        },
+      ];
+
+      function getQuestionSet() {
+        const setVal = document.getElementById("questionSetSelect").value;
+        if (setVal === "1") return QUESTION_BANK.slice(0, 30);
+        if (setVal === "2") return QUESTION_BANK.slice(30, 60);
+        if (setVal === "3") return QUESTION_BANK.slice(60, 90);
+        if (setVal === "4") return QUESTION_BANK.slice(90, 120);
+        if (setVal === "5") return QUESTION_BANK.slice(120, 150);
+        if (setVal === "6") return QUESTION_BANK.slice(150);
+        return [...QUESTION_BANK]; // fallback "0" hoặc mặc định
+      }
+
+      // -------- PHẦN GIAO DIỆN VÀ LOGIC THI (GIỮ NGUYÊN CẤU TRÚC NHƯ INDEX.HTML) ----------
+      const themeSwitch = document.getElementById("themeSwitch");
+      if (localStorage.getItem("theme") === "dark")
+        document.body.classList.add("dark-mode");
+      themeSwitch.onclick = () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem(
+          "theme",
+          document.body.classList.contains("dark-mode") ? "dark" : "light",
+        );
+      };
+
+      let currentQuestions = [],
+        userAnswers = [],
+        currentQuestionIndex = 0,
+        examStartTime,
+        timerInterval,
+        isExamFinished = false;
+      let TOTAL_TIME = 20 * 60; // default 20 phút
+      const homePage = document.getElementById("homePage"),
+        examPage = document.getElementById("examPage");
+      const startExamBtn = document.getElementById("startExamBtn"),
+        backToHomeBtn = document.getElementById("backToHomeBtn");
+      const questionText = document.getElementById("questionText"),
+        optionsContainer = document.getElementById("optionsContainer");
+      const Area = document.getElementById("Area"),
+        prevBtn = document.getElementById("prevBtn"),
+        nextBtn = document.getElementById("nextBtn");
+      const submitBtnBottom = document.getElementById("submitBtnBottom"),
+        questionGrid = document.getElementById("questionGrid");
+      const answeredCounter = document.getElementById("answeredCounter"),
+        submitExamBtn = document.getElementById("submitExamBtn");
+      const timerDisplay = document.getElementById("timerDisplay"),
+        resultPanel = document.getElementById("resultPanel");
+      const goToHomeBtn = document.getElementById("goToHomeBtn"),
+        goToHistoryBtn = document.getElementById("goToHistoryBtn");
+      const questionSetSelect = document.getElementById("questionSetSelect");
+      const startTimeStrSpan = document.getElementById("startTimeStr"),
+        endTimeStrSpan = document.getElementById("endTimeStr");
+      const durationStrSpan = document.getElementById("durationStr"),
+        scoreDetailSpan = document.getElementById("scoreDetail");
+      const scorePercentSpan = document.getElementById("scorePercent");
+
+      function startExam() {
+        currentQuestions = getQuestionSet();
+        if (document.getElementById("questionSetSelect").value === "0") {
+          TOTAL_TIME = 50 * 60; // 50 phút
+        } else {
+          TOTAL_TIME = 20 * 60; // 20 phút
+        }
+        userAnswers = new Array(currentQuestions.length).fill(null);
+        currentQuestionIndex = 0;
+        isExamFinished = false;
+        examStartTime = new Date();
+        homePage.style.display = "none";
+        examPage.style.display = "block";
+        displayQuestion(0);
+        updateQuestionGrid();
+        startTimer();
+        resultPanel.style.display = "none";
+        submitExamBtn.style.display = "block";
+        submitBtnBottom.style.display = "none";
+      }
+
+      function displayQuestion(index) {
+        if (index < 0 || index >= currentQuestions.length) return;
+        currentQuestionIndex = index;
+        const q = currentQuestions[index];
+        const isMulti = Array.isArray(q.correct);
+        let html = `<div class="question-text">Câu ${index + 1}: ${q.text}</div>`;
+        if (q.image)
+          html += `<img src="${q.image}" style="max-width:100%; border-radius:8px; margin-bottom:16px;">`;
+        questionText.innerHTML = html;
+        optionsContainer.innerHTML = "";
+
+        if (q.type === "matching") {
+          if (!userAnswers[index]) userAnswers[index] = {};
+
+          // Get shuffled rights only once per question render (or static)
+          const allRights = q.pairs
+            .map((p) => p.right)
+            .sort((a, b) => a.localeCompare(b));
+
+          q.pairs.forEach((pair, i) => {
+            const rowDiv = document.createElement("div");
+            rowDiv.style.display = "flex";
+            rowDiv.style.alignItems = "center";
+            rowDiv.style.justifyContent = "space-between";
+            rowDiv.style.marginBottom = "10px";
+            rowDiv.style.padding = "10px";
+            rowDiv.style.border = "1px solid #ccc";
+            rowDiv.style.borderRadius = "4px";
+
+            const leftDiv = document.createElement("div");
+            leftDiv.style.fontWeight = "bold";
+            leftDiv.style.flex = "1";
+            leftDiv.textContent = pair.left;
+
+            const rightSelect = document.createElement("select");
+            rightSelect.style.flex = "2";
+            rightSelect.style.padding = "8px";
+            rightSelect.style.borderRadius = "4px";
+            rightSelect.style.border = "1px solid #ccc";
+            if (isExamFinished) rightSelect.disabled = true;
+
+            const defaultOpt = document.createElement("option");
+            defaultOpt.value = "";
+            defaultOpt.textContent = "-- Chọn ý nghĩa tương ứng --";
+            rightSelect.appendChild(defaultOpt);
+
+            allRights.forEach((r) => {
+              const opt = document.createElement("option");
+              opt.value = r;
+              opt.textContent = r;
+              rightSelect.appendChild(opt);
+            });
+
+            if (userAnswers[index][pair.left]) {
+              rightSelect.value = userAnswers[index][pair.left];
+            }
+
+            rightSelect.onchange = (e) => {
+              userAnswers[index][pair.left] = e.target.value;
+              updateQuestionGrid();
+            };
+
+            if (isExamFinished) {
+              const isAnsCorrect = userAnswers[index][pair.left] === pair.right;
+              rowDiv.style.backgroundColor = isAnsCorrect
+                ? "#d4edda"
+                : "#f8d7da";
+              if (!isAnsCorrect) {
+                const correctLabel = document.createElement("div");
+                correctLabel.style.color = "red";
+                correctLabel.style.fontSize = "0.9em";
+                correctLabel.style.marginTop = "5px";
+                correctLabel.textContent = `Đúng: ${pair.right}`;
+                leftDiv.appendChild(correctLabel);
+              }
+            }
+
+            rowDiv.appendChild(leftDiv);
+            rowDiv.appendChild(rightSelect);
+            optionsContainer.appendChild(rowDiv);
+          });
+        } else if (q.type === "sequence") {
+          // Khởi tạo mảng thứ tự nếu chưa chọn lần nào (đặt ngẫu nhiên hoặc theo thứ tự gốc)
+          if (!userAnswers[index]) {
+            userAnswers[index] = [...q.items.map((item) => item.id)];
+          }
+
+          userAnswers[index].forEach((id, i) => {
+            const itemObj = q.items.find((it) => it.id === id);
+            const rowDiv = document.createElement("div");
+            rowDiv.style.display = "flex";
+            rowDiv.style.alignItems = "center";
+            rowDiv.style.justifyContent = "space-between";
+            rowDiv.style.marginBottom = "5px";
+            rowDiv.style.padding = "10px";
+            rowDiv.style.border = "1px solid #ccc";
+            rowDiv.style.borderRadius = "4px";
+            rowDiv.style.backgroundColor = isExamFinished
+              ? id === q.correctOrder[i]
+                ? "#d4edda"
+                : "#f8d7da"
+              : "#fdfdfd";
+
+            const leftDiv = document.createElement("div");
+            leftDiv.style.display = "flex";
+            leftDiv.style.alignItems = "center";
+            leftDiv.style.flex = "1";
+
+            const idxSpan = document.createElement("span");
+            idxSpan.style.fontWeight = "bold";
+            idxSpan.style.marginRight = "10px";
+            idxSpan.style.color = "#007bff";
+            idxSpan.textContent = `Bước ${i + 1}.`;
+
+            const txtSpan = document.createElement("span");
+            txtSpan.style.color = "black";
+            txtSpan.textContent = itemObj.text;
+
+            leftDiv.appendChild(idxSpan);
+            leftDiv.appendChild(txtSpan);
+
+            rowDiv.appendChild(leftDiv);
+
+            if (!isExamFinished) {
+              rowDiv.draggable = true;
+              rowDiv.style.cursor = "grab";
+
+              rowDiv.ondragstart = (e) => {
+                e.dataTransfer.setData("text/plain", i);
+                rowDiv.style.opacity = "0.5";
+              };
+
+              rowDiv.ondragend = (e) => {
+                rowDiv.style.opacity = "1";
+              };
+
+              rowDiv.ondragover = (e) => {
+                e.preventDefault();
+                rowDiv.style.borderTop = "2px solid #007bff";
+              };
+
+              rowDiv.ondragleave = (e) => {
+                rowDiv.style.borderTop = "1px solid #ccc";
+              };
+
+              rowDiv.ondrop = (e) => {
+                e.preventDefault();
+                rowDiv.style.borderTop = "1px solid #ccc";
+                const draggedIndex = parseInt(
+                  e.dataTransfer.getData("text/plain"),
+                );
+                if (draggedIndex !== i) {
+                  const items = userAnswers[index];
+                  const [draggedItem] = items.splice(draggedIndex, 1);
+                  items.splice(i, 0, draggedItem);
+                  displayQuestion(index);
+                  updateQuestionGrid();
+                }
+              };
+            } else {
+              rowDiv.style.cursor = "default";
+            }
+
+            optionsContainer.appendChild(rowDiv);
+          });
+        } else {
+          q.options.forEach((opt, i) => {
+            const div = document.createElement("div");
+            div.className = "option-item";
+
+            let isSelected = false;
+            if (isMulti) {
+              isSelected = userAnswers[index] && userAnswers[index].includes(i);
+            } else {
+              isSelected = userAnswers[index] === i;
+            }
+            if (isSelected) div.classList.add("selected");
+
+            if (isExamFinished) {
+              let isCorrectOption = false;
+              if (isMulti) isCorrectOption = q.correct.includes(i);
+              else isCorrectOption = q.correct === i;
+
+              if (isCorrectOption) div.classList.add("correct-after");
+              else if (isSelected) div.classList.add("wrong-after");
+            }
+
+            const checkboxHtml = isMulti
+              ? `<input type="checkbox" ${isSelected ? "checked" : ""} style="margin-right: 10px; cursor: pointer; pointer-events: none;"> `
+              : "";
+            let optHtml = opt;
+            if (
+              typeof opt === "string" &&
+              opt.match(/^(ẢnhNNHT|media)\/.*\.(png|jpg|jpeg|gif)$/i)
+            ) {
+              optHtml = `<img src="${opt}" style="max-height:80px; max-width:100%; vertical-align:middle; border-radius:4px;">`;
+            }
+            div.innerHTML = `${checkboxHtml}<span class="option-prefix">${String.fromCharCode(65 + i)}.</span> ${optHtml}`;
+            if (!isExamFinished)
+              div.onclick = () => selectOption(index, i, isMulti);
+            optionsContainer.appendChild(div);
+          });
+        }
+        updateNavButtons();
+        updateQuestionGrid();
+        update();
+      }
+
+      function selectOption(qIdx, optIdx, isMulti) {
+        if (isExamFinished) return;
+        if (isMulti) {
+          if (!userAnswers[qIdx] || !Array.isArray(userAnswers[qIdx]))
+            userAnswers[qIdx] = [];
+          const idx = userAnswers[qIdx].indexOf(optIdx);
+          if (idx > -1) userAnswers[qIdx].splice(idx, 1);
+          else userAnswers[qIdx].push(optIdx);
+          if (userAnswers[qIdx].length === 0) userAnswers[qIdx] = null;
+        } else {
+          userAnswers[qIdx] = optIdx;
+        }
+        displayQuestion(qIdx);
+      }
+
+      function updateNavButtons() {
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === currentQuestions.length - 1;
+        submitBtnBottom.style.display =
+          currentQuestionIndex === currentQuestions.length - 1 &&
+          !isExamFinished
+            ? "block"
+            : "none";
+      }
+
+      function updateQuestionGrid() {
+        questionGrid.innerHTML = "";
+        for (let i = 0; i < currentQuestions.length; i++) {
+          const qDiv = document.createElement("div");
+          qDiv.className = "q-num";
+          qDiv.textContent = i + 1;
+          qDiv.onclick = () => displayQuestion(i);
+          if (i === currentQuestionIndex) qDiv.classList.add("current");
+
+          let hasAnswer = false;
+          if (currentQuestions[i].type === "matching") {
+            const ansObj = userAnswers[i] || {};
+            hasAnswer = currentQuestions[i].pairs.every(
+              (p) => ansObj[p.left] && ansObj[p.left] !== "",
+            );
+          } else if (currentQuestions[i].type === "sequence") {
+            hasAnswer =
+              userAnswers[i] &&
+              userAnswers[i].length === currentQuestions[i].items.length;
+          } else {
+            hasAnswer = userAnswers[i] !== null;
+          }
+
+          if (hasAnswer) {
+            if (!isExamFinished) qDiv.classList.add("selected");
+            else {
+              const q = currentQuestions[i];
+              if (q.type === "matching") {
+                const isCorrect = q.pairs.every(
+                  (p) => userAnswers[i][p.left] === p.right,
+                );
+                if (isCorrect) qDiv.classList.add("correct");
+                else qDiv.classList.add("wrong");
+              } else if (q.type === "sequence") {
+                const isCorrect = userAnswers[i].every(
+                  (ansId, idx) => ansId === q.correctOrder[idx],
+                );
+                if (isCorrect) qDiv.classList.add("correct");
+                else qDiv.classList.add("wrong");
+              } else if (Array.isArray(q.correct)) {
+                const isCorrect =
+                  Array.isArray(userAnswers[i]) &&
+                  userAnswers[i].length === q.correct.length &&
+                  userAnswers[i].every((val) => q.correct.includes(val));
+                if (isCorrect) qDiv.classList.add("correct");
+                else qDiv.classList.add("wrong");
+              } else {
+                if (userAnswers[i] === q.correct) qDiv.classList.add("correct");
+                else qDiv.classList.add("wrong");
+              }
+            }
+          }
+          questionGrid.appendChild(qDiv);
+        }
+
+        let answered = 0;
+        for (let i = 0; i < currentQuestions.length; i++) {
+          if (currentQuestions[i].type === "matching") {
+            const ansObj = userAnswers[i] || {};
+            if (
+              currentQuestions[i].pairs.every(
+                (p) => ansObj[p.left] && ansObj[p.left] !== "",
+              )
+            )
+              answered++;
+          } else if (currentQuestions[i].type === "sequence") {
+            if (
+              userAnswers[i] &&
+              userAnswers[i].length === currentQuestions[i].items.length
+            )
+              answered++;
+          } else if (userAnswers[i] !== null) {
+            answered++;
+          }
+        }
+        answeredCounter.textContent = `${answered}/${currentQuestions.length}`;
+      }
+
+      function update() {
+        Area.style.display = "none";
+        if (!isExamFinished) return;
+        const q = currentQuestions[currentQuestionIndex];
+        const ans = userAnswers[currentQuestionIndex];
+        if (ans !== null) {
+          Area.style.display = "block";
+
+          let isAnswerCorrect = false;
+          let correctStr = "";
+
+          if (q.type === "matching") {
+            isAnswerCorrect = q.pairs.every((p) => ans[p.left] === p.right);
+            correctStr = "Xem từng dòng ở trên để biết đáp án đúng";
+          } else if (q.type === "sequence") {
+            isAnswerCorrect = ans.every(
+              (id, idx) => id === q.correctOrder[idx],
+            );
+            correctStr = "Xem màu nền của từng dòng phía trên";
+          } else if (Array.isArray(q.correct)) {
+            isAnswerCorrect =
+              Array.isArray(ans) &&
+              ans.length === q.correct.length &&
+              ans.every((val) => q.correct.includes(val));
+            correctStr = q.correct
+              .map((idx) => String.fromCharCode(65 + idx))
+              .join(", ");
+          } else {
+            isAnswerCorrect = ans === q.correct;
+            correctStr = String.fromCharCode(65 + q.correct);
+          }
+
+          if (isAnswerCorrect) {
+            Area.className = "-area -correct show";
+            Area.innerHTML = `<strong>✔ Đúng</strong> ${q.explanation || ""}`;
+          } else {
+            Area.className = "-area -wrong show";
+            Area.innerHTML = `<strong>✘ Sai</strong> Đáp án đúng: ${correctStr}. ${q.explanation || ""}`;
+          }
+        }
+      }
+
+      function startTimer() {
+        let timeLeft = TOTAL_TIME;
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          const mm = Math.floor(timeLeft / 60),
+            ss = timeLeft % 60;
+          timerDisplay.textContent = `${mm.toString().padStart(2, "0")}:${ss.toString().padStart(2, "0")}`;
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert("Hết thời gian làm bài! Hệ thống sẽ tự động nộp bài.");
+            submitExam(true);
+          }
+        }, 1000);
+      }
+
+      function submitExam(isAuto = false) {
+        if (isAuto !== true && !confirm("Bạn có chắc chắn muốn nộp bài ngay?"))
+          return;
+        clearInterval(timerInterval);
+        isExamFinished = true;
+        let correctCount = 0;
+        for (let i = 0; i < currentQuestions.length; i++) {
+          const q = currentQuestions[i];
+          if (q.type === "matching") {
+            if (
+              userAnswers[i] &&
+              q.pairs.every((p) => userAnswers[i][p.left] === p.right)
+            )
+              correctCount++;
+          } else if (q.type === "sequence") {
+            if (
+              userAnswers[i] &&
+              userAnswers[i].every((id, idx) => id === q.correctOrder[idx])
+            )
+              correctCount++;
+          } else if (Array.isArray(q.correct)) {
+            if (
+              Array.isArray(userAnswers[i]) &&
+              userAnswers[i].length === q.correct.length &&
+              userAnswers[i].every((val) => q.correct.includes(val))
+            ) {
+              correctCount++;
+            }
+          } else {
+            if (userAnswers[i] === q.correct) correctCount++;
+          }
+        }
+        const score = (correctCount / currentQuestions.length) * 100;
+        const endTime = new Date();
+        const durationSec = Math.round((endTime - examStartTime) / 1000);
+        const durationStr = `${Math.floor(durationSec / 60)} phút ${durationSec % 60} giây`;
+        const historyItem = {
+          id: Date.now(),
+          startTimeStr: examStartTime.toLocaleString(),
+          endTimeStr: endTime.toLocaleString(),
+          durationStr: durationStr,
+          correctCount,
+          totalCount: currentQuestions.length,
+          score,
+          userAnswers: [...userAnswers],
+        };
+        const history = JSON.parse(
+          localStorage.getItem("flatExamHistory") || "[]",
+        );
+        history.push(historyItem);
+        localStorage.setItem("flatExamHistory", JSON.stringify(history));
+        startTimeStrSpan.textContent = historyItem.startTimeStr;
+        endTimeStrSpan.textContent = historyItem.endTimeStr;
+        durationStrSpan.textContent = historyItem.durationStr;
+        scoreDetailSpan.textContent = `${correctCount}/${currentQuestions.length}`;
+        scorePercentSpan.textContent = `${score.toFixed(2)}/100.00`;
+        resultPanel.style.display = "block";
+        submitExamBtn.style.display = "none";
+        submitBtnBottom.style.display = "none";
+        displayQuestion(currentQuestionIndex);
+        loadHistorySummary();
+      }
+
+      function goHome() {
+        if (!isExamFinished && !confirm("Thoát sẽ mất tiến độ. Tiếp tục?"))
+          return;
+        clearInterval(timerInterval);
+        homePage.style.display = "block";
+        examPage.style.display = "none";
+        document.querySelector('.tab-btn[data-tab="new-exam"]').click();
+      }
+
+      function goHistory() {
+        if (!isExamFinished && !confirm("Thoát về lịch sử?")) return;
+        clearInterval(timerInterval);
+        homePage.style.display = "block";
+        examPage.style.display = "none";
+        document.querySelector('.tab-btn[data-tab="history-summary"]').click();
+        loadHistorySummary();
+      }
+
+      function loadHistorySummary() {
+        const history = JSON.parse(
+          localStorage.getItem("flatExamHistory") || "[]",
+        );
+        const tbody = document.getElementById("historySummaryBody");
+        tbody.innerHTML = "";
+        if (history.length === 0) {
+          tbody.innerHTML =
+            "<tr><td colspan='4' style='text-align:center'>Chưa có lịch sử</td></tr>";
+          return;
+        }
+        history
+          .slice()
+          .reverse()
+          .forEach((item, idx) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>Lần ${history.length - idx}</td><td><span style="color: #28a745; font-weight: 500;">Đã kết thúc</span><br><span style="font-size:0.7rem">${item.endTimeStr}</span></td><td>${item.score.toFixed(2)}</td><td><a class="review-link" data-id="${item.id}" href="#">Xem lại</a></td>`;
+            tbody.appendChild(tr);
+          });
+        document.querySelectorAll(".review-link").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const id = parseInt(link.getAttribute("data-id"));
+            reviewExam(id);
+          });
+        });
+      }
+
+      function reviewExam(id) {
+        const history = JSON.parse(
+          localStorage.getItem("flatExamHistory") || "[]",
+        );
+        const item = history.find((i) => i.id === id);
+        if (!item) return;
+        clearInterval(timerInterval);
+        currentQuestions = getQuestionSet();
+        userAnswers =
+          item.userAnswers || new Array(currentQuestions.length).fill(null);
+        isExamFinished = true;
+        examStartTime = new Date(item.startTimeStr);
+        homePage.style.display = "none";
+        examPage.style.display = "block";
+        resultPanel.style.display = "block";
+        startTimeStrSpan.textContent = item.startTimeStr;
+        endTimeStrSpan.textContent = item.endTimeStr;
+        durationStrSpan.textContent = item.durationStr;
+        scoreDetailSpan.textContent = `${item.correctCount}/${item.totalCount}`;
+        scorePercentSpan.textContent = `${item.score.toFixed(2)}/100.00`;
+        submitExamBtn.style.display = "none";
+        submitBtnBottom.style.display = "none";
+        displayQuestion(0);
+        updateQuestionGrid();
+      }
+
+      startExamBtn.onclick = startExam;
+      backToHomeBtn.onclick = goHome;
+      prevBtn.onclick = () => displayQuestion(currentQuestionIndex - 1);
+      nextBtn.onclick = () => displayQuestion(currentQuestionIndex + 1);
+
+      document.addEventListener("keydown", (e) => {
+        if (examPage.style.display === "block") {
+          if (e.key === "ArrowLeft") {
+            displayQuestion(currentQuestionIndex - 1);
+          } else if (e.key === "ArrowRight") {
+            displayQuestion(currentQuestionIndex + 1);
+          }
+        }
+      });
+
+      submitExamBtn.onclick = () => submitExam(false);
+      submitBtnBottom.onclick = () => submitExam(false);
+      goToHomeBtn.onclick = goHome;
+      goToHistoryBtn.onclick = goHistory;
+
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.onclick = () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+          document
+            .getElementById(btn.getAttribute("data-tab") + "Tab")
+            .classList.add("active");
+          if (btn.getAttribute("data-tab") === "history-summary")
+            loadHistorySummary();
+        };
+      });
+      loadHistorySummary();
+    </script>
+  </body>
+</html>
