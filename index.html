@@ -2629,7 +2629,13 @@
         currentQuestionIndex = index;
         const q = currentQuestions[index];
         const isMulti = Array.isArray(q.correct);
-        let html = `<div class="question-text">Câu ${index + 1}: ${q.text}</div>`;
+
+        let html = `<div class="question-text">Câu ${index + 1}: ${q.text}`;
+        if (isMulti) {
+          html += ` <i style="font-size: 0.85em; font-weight: normal; color: #d03a3a;">(Chọn ${q.correct.length} đáp án)</i>`;
+        }
+        html += `</div>`;
+
         if (q.image)
           html += `<img src="${q.image}" style="max-width:100%; border-radius:8px; margin-bottom:16px;">`;
         questionText.innerHTML = html;
@@ -2689,11 +2695,20 @@
 
             rightSelect.onchange = (e) => {
               userAnswers[index][pair.left] = e.target.value;
+
               if (window.instantResultEnabled) {
-                if (!window.instantResultEvaluated)
-                  window.instantResultEvaluated = {};
-                window.instantResultEvaluated[index] = true;
+                const allSelected = q.pairs.every(
+                  (p) =>
+                    userAnswers[index][p.left] &&
+                    userAnswers[index][p.left] !== "",
+                );
+                if (allSelected) {
+                  if (!window.instantResultEvaluated)
+                    window.instantResultEvaluated = {};
+                  window.instantResultEvaluated[index] = true;
+                }
               }
+
               updateQuestionGrid();
               displayQuestion(index);
             };
@@ -2791,11 +2806,8 @@
                   const items = userAnswers[index];
                   const [draggedItem] = items.splice(draggedIndex, 1);
                   items.splice(i, 0, draggedItem);
-                  if (window.instantResultEnabled) {
-                    if (!window.instantResultEvaluated)
-                      window.instantResultEvaluated = {};
-                    window.instantResultEvaluated[index] = true;
-                  }
+                  // Sequence doesn't have a clear "finished" action except submitting,
+                  // so we don't evaluate it instantly to avoid locking prematurely.
                   displayQuestion(index);
                   updateQuestionGrid();
                 }
@@ -2857,6 +2869,9 @@
             window.instantResultEvaluated[qIdx])
         )
           return;
+
+        let shouldEvaluateNow = false;
+
         if (isMulti) {
           if (!userAnswers[qIdx] || !Array.isArray(userAnswers[qIdx]))
             userAnswers[qIdx] = [];
@@ -2864,11 +2879,19 @@
           if (idx > -1) userAnswers[qIdx].splice(idx, 1);
           else userAnswers[qIdx].push(optIdx);
           if (userAnswers[qIdx].length === 0) userAnswers[qIdx] = null;
+
+          if (
+            userAnswers[qIdx] &&
+            userAnswers[qIdx].length === currentQuestions[qIdx].correct.length
+          ) {
+            shouldEvaluateNow = true;
+          }
         } else {
           userAnswers[qIdx] = optIdx;
+          shouldEvaluateNow = true;
         }
 
-        if (window.instantResultEnabled) {
+        if (window.instantResultEnabled && shouldEvaluateNow) {
           if (!window.instantResultEvaluated)
             window.instantResultEvaluated = {};
           window.instantResultEvaluated[qIdx] = true;
