@@ -475,6 +475,59 @@
           position: static;
         }
       }
+      /* Bổ sung cho chức năng hiển thị kết quả ngay */
+      .instant-switch {
+        position: relative;
+        display: inline-block;
+        width: 36px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-left: 10px;
+      }
+      .instant-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .instant-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+      .instant-slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+      input:checked + .instant-slider {
+        background-color: #55b244;
+      }
+      input:focus + .instant-slider {
+        box-shadow: 0 0 1px #55b244;
+      }
+      input:checked + .instant-slider:before {
+        -webkit-transform: translateX(16px);
+        -ms-transform: translateX(16px);
+        transform: translateX(16px);
+      }
+      .instant-slider.instant-round {
+        border-radius: 20px;
+      }
+      .instant-slider.instant-round:before {
+        border-radius: 50%;
+      }
     </style>
   </head>
   <body>
@@ -521,7 +574,7 @@
               document.getElementById("infoTime").innerText = "⏱️ 50 phút";
             } else {
               document.getElementById("infoQuestions").innerText =
-                "📄 27 câu/lần";
+                "📄 30 câu/lần";
               document.getElementById("infoTime").innerText = "⏱️ 20 phút";
             }
           }
@@ -603,21 +656,44 @@
           <div
             style="
               display: flex;
-              justify-content: space-between;
-              margin-bottom: 8px;
+              flex-direction: column;
+              gap: 12px;
+              margin-bottom: 12px;
             "
           >
-            <strong>📋 DANH SÁCH CÂU</strong
-            ><span
-              id="answeredCounter"
+            <div
               style="
-                background: #eef2ff;
-                color: black;
-                padding: 2px 8px;
-                border-radius: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
               "
-              >0/0</span
             >
+              <strong>📋 DANH SÁCH CÂU</strong
+              ><span
+                id="answeredCounter"
+                style="
+                  background: #eef2ff;
+                  color: black;
+                  padding: 2px 8px;
+                  border-radius: 20px;
+                "
+                >0/0</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.9em;
+              "
+            >
+              <span>Hiển thị kết quả ngay sau khi trả lời</span>
+              <label class="instant-switch">
+                <input type="checkbox" id="instantResultToggle" />
+                <span class="instant-slider instant-round"></span>
+              </label>
+            </div>
           </div>
           <div id="questionGrid" class="question-grid"></div>
           <button class="submit-btn" id="submitExamBtn">📥 NỘP BÀI</button>
@@ -1270,7 +1346,6 @@
         },
         {
           text: "Mô tả nào đúng về IPv6?",
-          image: "",
           options: [
             "Những địa chỉ IP hiện hành đều là IPv4",
             "Những địa chỉ IP hiện hành đều là IPv6",
@@ -1949,7 +2024,9 @@
             "Phương thức truyền Point to point hạn chế khả năng xảy ra Collison",
             "Hub sử dụng phương thức truyền Point to point",
           ],
-          correct: 3, explanation: "=> Hub sử dụng các phương thức Ethernet, Token Ring, FDDI (không phải point-to-point)",
+          correct: 3,
+          explanation:
+            "=> Hub sử dụng các phương thức Ethernet, Token Ring, FDDI (không phải point-to-point)",
         },
         {
           text: "Đâu là ứng dụng mạng?",
@@ -1981,7 +2058,8 @@
             "Không còn Data Center nữa",
             "Giúp xử lý tại chỗ một phần dữ liệu ngay tại nơi chúng được sinh ra",
           ],
-          correct: 3, explanation: "Edge computing vẫn có Data Center, chỉ phân tán",
+          correct: 3,
+          explanation: "Edge computing vẫn có Data Center, chỉ phân tán",
         },
         {
           text: "Mệnh đề nào Sai khi mô tả về Edge Computing?",
@@ -1991,7 +2069,8 @@
             "Xử lý tại chỗ và phản hồi ngay kết quả đối với những tác vụ đơn giản hoặc tác vụ phải được xử lý ngay lập tức",
             "Giúp giảm thời gian truyền nhờ nén dữ liệu trước khi truyền",
           ],
-          correct: 0, explanation: "Edge không làm mất an toàn dữ liệu",
+          correct: 0,
+          explanation: "Edge không làm mất an toàn dữ liệu",
         },
         {
           text: "Mệnh đề nào Sai khi mô tả về hệ thống điện thoại IP?",
@@ -2001,7 +2080,9 @@
             "Hoạt động theo mô hình Client-Server",
             "Chỉ bao gồm Máy gọi và Máy nghe, hoạt động theo kiểu ngang hàng (Peer to Peer)",
           ],
-          correct: 3, explanation: "Điện thoại IP hoạt động theo client-server, không phải peer-to-peer thuần túy",
+          correct: 3,
+          explanation:
+            "Điện thoại IP hoạt động theo client-server, không phải peer-to-peer thuần túy",
         },
         {
           text: "Mệnh đề nào Sai khi mô tả HTTP?",
@@ -2011,7 +2092,8 @@
             "Hiện nay HTTP chủ yếu sử dụng UDP thay vì TCP",
             "Cổng mặc định là 80, nhưng lập trình viên có thể chọn cổng khác",
           ],
-          correct: 2, explanation: "HTTP dùng TCP, không dùng UDP",
+          correct: 2,
+          explanation: "HTTP dùng TCP, không dùng UDP",
         },
         {
           text: "Mô tả nào đúng về dịch vụ Email?",
@@ -2022,7 +2104,8 @@
             "HTTP có thể thực hiện bước (1) và (3)",
             "Giao thức SMTP có thể không tham gia vào (2)",
           ],
-          correct: 2, explanation: "HTTP (webmail) có thể thực hiện bước (1) và (3)",
+          correct: 2,
+          explanation: "HTTP (webmail) có thể thực hiện bước (1) và (3)",
         },
         {
           text: "Mệnh đề nào mô tả đúng về VPN?",
@@ -2037,7 +2120,8 @@
         {
           text: 'Trong tên miền "hnue.edu.vn" của trường Đại học Sư phạm Hà Nội, ".vn" là tên miền ở cấp nào?',
           options: ["Generic TLD", "gTLD", "Top Level", "Country Code TLD"],
-          correct: 3, explanation: ".vn là Country Code TLD",
+          correct: 3,
+          explanation: ".vn là Country Code TLD",
         },
         {
           text: "Đâu là lợi ích mà Cloud Computing đem lại?",
@@ -2057,7 +2141,8 @@
             "Được quản lý bởi tổ chức IETF",
             "Tài liệu được lưu trữ dưới dạng file văn bản .doc hoặc .pdf",
           ],
-          correct: 3, explanation: "RFC là plain text, không phải .doc hay .pdf",
+          correct: 3,
+          explanation: "RFC là plain text, không phải .doc hay .pdf",
         },
         {
           text: "Mô tả nào đúng về công nghệ IEEE 802.5?",
@@ -2083,7 +2168,8 @@
             "Tồn tại dưới dạng văn bản ASCII",
             "Bao gồm nhiều dòng kết thúc bởi ký tự Carriage Return (LF, 13h)",
           ],
-          correct: 6, explanation: "Tồn tại dưới dạng văn bản ASCII",
+          correct: 6,
+          explanation: "Tồn tại dưới dạng văn bản ASCII",
         },
         {
           text: "Mệnh đề nào Sai khi mô tả về công nghệ VoIP?",
@@ -2104,7 +2190,8 @@
             "Giao thông thông minh, nhà thông minh là thành phần của IoT",
             "Các đồ vật, thiết bị IoT có khả năng cảm nhận môi trường xung quanh nhờ được gắn thiết bị sensor",
           ],
-          correct: 1, explanation: "Thương mại điện tử không phải riêng của IoT",
+          correct: 1,
+          explanation: "Thương mại điện tử không phải riêng của IoT",
         },
         {
           text: "So sánh với việc tự trang bị và quản lý các máy chủ vật lý, công nghệ Ảo hóa ưu việt hơn ở điểm nào?",
@@ -2124,7 +2211,8 @@
             "Nhằm mục đích giảm tải các Data Center của Cloud",
             "Một nguyên nhân khiến cho Cloud bị quá tải là do IoT phát triển quá nhanh chóng",
           ],
-          correct: 1, explanation: "Edge không phải là Cloud",
+          correct: 1,
+          explanation: "Edge không phải là Cloud",
         },
         {
           text: "Mệnh đề nào Sai khi mô tả về dịch vụ thư điện tử?",
@@ -2134,7 +2222,8 @@
             "Giao thức IMAP đã bị lạc hậu và được thay thế bởi POP3",
             "POP3 cho phép xem email ngay cả khi không có kết nối Internet",
           ],
-          correct: 2, explanation: "IMAP không lạc hậu, POP3 không thay thế",
+          correct: 2,
+          explanation: "IMAP không lạc hậu, POP3 không thay thế",
         },
         {
           text: "Đâu là tên của một giao thức?",
@@ -2156,7 +2245,8 @@
             "Hệ thống thông tin bao gồm máy chủ, các thiết bị mạng và hệ thống dữ liệu tác nghiệp đặt ở cơ quan, do bộ phận Tin học cơ hữu của cơ quan quản lý",
             "Hệ thống cơ sở dữ liệu và phần mềm tác nghiệp được cài đặt trên máy chủ nằm ở cơ quan",
           ],
-          correct: 0, explanation: "Cloud cho phép truy cập từ xa qua Internet",
+          correct: 0,
+          explanation: "Cloud cho phép truy cập từ xa qua Internet",
         },
         {
           text: "Đâu là tài nguyên mạng?",
@@ -2187,7 +2277,8 @@
             "Máy chủ",
             "Mạng Client-Server",
           ],
-          correct: 0, explanation: "Trung tâm dữ liệu",
+          correct: 0,
+          explanation: "Trung tâm dữ liệu",
         },
         {
           text: "HTTP 1.1 hoạt động theo kiểu nào?",
@@ -2209,7 +2300,9 @@
             "Tiết kiệm thời gian truyền bằng cách sử dụng chế độ connectionless",
             "Sử dụng chế độ connectionless như HTTP 1.0",
           ],
-          correct: 2, explanation: "Persistent connection, dùng một kết nối cho nhiều request",
+          correct: 2,
+          explanation:
+            "Persistent connection, dùng một kết nối cho nhiều request",
         },
         {
           text: "Mệnh đề nào mô tả Đúng về Trung tâm dữ liệu (Data Center)?",
@@ -2250,7 +2343,8 @@
             "Multicast",
             "Point to point",
           ],
-          correct: 4, explanation: "Point to point",
+          correct: 4,
+          explanation: "Point to point",
         },
         {
           text: "Mô tả nào đúng về HTTP 1.0?",
@@ -2260,18 +2354,19 @@
             "Sử dụng giao thức UDP ở tầng dưới",
             "Sau khi Web browser gửi xong thông điệp Request thì sẽ hủy kết nối tới Web server",
           ],
-          correct: 1, explanation: "HTTP 1.0 đóng kết nối sau mỗi response",
+          correct: 1,
+          explanation: "HTTP 1.0 đóng kết nối sau mỗi response",
         },
         {
           text: "Mệnh đề nào Sai khi mô tả về công nghệ IPTV?",
-          image: "",
           options: [
             "Là dịch vụ phát video theo yêu cầu (Internet Protocol Television – Truyền hình Internet)",
             "Sử dụng đường truyền nội bộ của nhà cung cấp",
             "Sử dụng đường truyền Internet công cộng",
             "Cước phí cao hơn so với OTT",
           ],
-          correct: 2, explanation: "IPTV dùng mạng riêng, không dùng Internet công cộng",
+          correct: 2,
+          explanation: "IPTV dùng mạng riêng, không dùng Internet công cộng",
         },
         {
           text: "Mô tả nào đúng về dịch vụ Email? (POP3, IMAP, HTTP)",
@@ -2282,7 +2377,8 @@
             "IMAP không hỗ trợ việc đánh dấu, phân loại, lưu trữ, tìm kiếm thư",
             "Ngày nay Webmail được sử dụng giao thức POP3 như giao thức chủ yếu",
           ],
-          correct: 0, explanation: "POP3 thiếu các tính năng quản lý thư trên server",
+          correct: 0,
+          explanation: "POP3 thiếu các tính năng quản lý thư trên server",
         },
         {
           text: "Mệnh đề nào đúng khi mô tả về Hub và Switch?",
@@ -2314,7 +2410,8 @@
             "Với khách hàng, việc vận hành và sử dụng tài nguyên ảo không khác gì tài nguyên vật lý",
             "Giúp chia nhỏ một tài nguyên thành nhiều tài nguyên ảo",
           ],
-          correct: 0, explanation: "Hypervisor không phải Host OS",
+          correct: 0,
+          explanation: "Hypervisor không phải Host OS",
         },
         {
           text: "Mô tả nào đúng về lược đồ Hình sao?",
@@ -2325,7 +2422,8 @@
             "Trong lúc sửa chữa thì toàn mạng không hoạt động",
             "Sử dụng Switch (Hub) làm thiết bị đấu nối trung tâm",
           ],
-          correct: 4, explanation: "Hình sao dùng hub/switch trung tâm",
+          correct: 4,
+          explanation: "Hình sao dùng hub/switch trung tâm",
         },
         {
           text: "Mô tả nào đúng về Mô hình mạng?",
@@ -2346,7 +2444,8 @@
             "Tên viết đầy đủ là Over Top Transmission",
             "Là các dịch vụ được cung cấp trực tiếp tới người dùng, nhà cung cấp đường truyền mạng không thể quản lý nội dung hay thu phí",
           ],
-          correct: 2, explanation: "OTT là Over The Top, không phải Over Top Transmission",
+          correct: 2,
+          explanation: "OTT là Over The Top, không phải Over Top Transmission",
         },
         {
           text: "Dịch vụ IaaS cho người dùng thuê loại tài nguyên nào?",
@@ -2367,7 +2466,8 @@
             "DNS server (còn gọi là Name server)",
             "HTTP server",
           ],
-          correct: 2, explanation: "DNS server",
+          correct: 2,
+          explanation: "DNS server",
         },
         {
           text: "Mô tả nào đúng về thiết bị Router?",
@@ -2378,12 +2478,14 @@
             "Chỉ có vùng nhớ đệm, không có RAM",
             "Có routing table (bảng định tuyến)",
           ],
-          correct: 4, explanation: "Router có routing table và có thể có firewall",
+          correct: 4,
+          explanation: "Router có routing table và có thể có firewall",
         },
         {
           text: "Trường Total Length có vị trí từ bit 16 đến hết bit 31 trong phần Header của gói tin IPv4, vì thế độ dài tối đa của gói tin (tính theo byte) là ...",
           options: ["31", "64K", "16K", "Các đáp án còn lại đều sai"],
-          correct: 1, explanation: "2^16 = 65535 bytes ≈ 64KB",
+          correct: 1,
+          explanation: "2^16 = 65535 bytes ≈ 64KB",
         },
         {
           text: "Mô tả nào đúng về cơ chế Leaky Bucket của tầng Network?",
@@ -2404,7 +2506,9 @@
             "Ban đầu được thiết kế để giải quyết vấn đề thiếu địa chỉ của IPv4",
             "Network Address Translation",
           ],
-          correct: 1, explanation: "NAT là Network Address Translation, không phải Advanced",
+          correct: 1,
+          explanation:
+            "NAT là Network Address Translation, không phải Advanced",
         },
         {
           text: "Kết quả hiển thị sau đây tại cửa sổ lệnh cho biết điều gì? \nC:\Users\MyPC>ipconfig /all  \nEthernet adapter:  \nPhysical Address. . . . . . . . . : B4-2E-99-76-63-3D  \nIPv4 Address. . . . . . . . . . . : 192.168.1.7  \nSubnet Mask . . . . . . . . . . . : 255.255.255.0",
@@ -2414,7 +2518,8 @@
             "Địa chỉ IP thuộc lớp A",
             "Mặt nạ mạng là 255.0.0.0",
           ],
-          correct: 1, explanation: "Physical Address là địa chỉ MAC",
+          correct: 1,
+          explanation: "Physical Address là địa chỉ MAC",
         },
       ];
 
@@ -2465,6 +2570,31 @@
         resultPanel = document.getElementById("resultPanel");
       const goToHomeBtn = document.getElementById("goToHomeBtn"),
         goToHistoryBtn = document.getElementById("goToHistoryBtn");
+
+      const instantResultToggle = document.getElementById(
+        "instantResultToggle",
+      );
+      window.instantResultEnabled = false;
+      window.instantResultEvaluated = {};
+
+      instantResultToggle.addEventListener("change", function (e) {
+        if (e.target.checked) {
+          const confirmInstant = confirm(
+            "Sau khi bật tính năng này, mỗi khi bạn chọn đáp án sẽ hiển thị kết quả đúng/sai ngay lập tức. Bạn có muốn tiếp tục?",
+          );
+          if (confirmInstant) {
+            window.instantResultEnabled = true;
+          } else {
+            e.target.checked = false;
+            window.instantResultEnabled = false;
+          }
+        } else {
+          window.instantResultEnabled = false;
+        }
+        if (currentQuestions.length > 0) {
+          displayQuestion(currentQuestionIndex);
+        }
+      });
       const questionSetSelect = document.getElementById("questionSetSelect");
       const startTimeStrSpan = document.getElementById("startTimeStr"),
         endTimeStrSpan = document.getElementById("endTimeStr");
@@ -2480,6 +2610,7 @@
           TOTAL_TIME = 20 * 60; // 20 phút
         }
         userAnswers = new Array(currentQuestions.length).fill(null);
+        window.instantResultEvaluated = {};
         currentQuestionIndex = 0;
         isExamFinished = false;
         examStartTime = new Date();
@@ -2503,6 +2634,12 @@
           html += `<img src="${q.image}" style="max-width:100%; border-radius:8px; margin-bottom:16px;">`;
         questionText.innerHTML = html;
         optionsContainer.innerHTML = "";
+
+        const isQuestionEvaluated =
+          isExamFinished ||
+          (window.instantResultEnabled &&
+            window.instantResultEvaluated &&
+            window.instantResultEvaluated[index]);
 
         if (q.type === "matching") {
           if (!userAnswers[index]) userAnswers[index] = {};
@@ -2532,7 +2669,7 @@
             rightSelect.style.padding = "8px";
             rightSelect.style.borderRadius = "4px";
             rightSelect.style.border = "1px solid #ccc";
-            if (isExamFinished) rightSelect.disabled = true;
+            if (isQuestionEvaluated) rightSelect.disabled = true;
 
             const defaultOpt = document.createElement("option");
             defaultOpt.value = "";
@@ -2552,10 +2689,16 @@
 
             rightSelect.onchange = (e) => {
               userAnswers[index][pair.left] = e.target.value;
+              if (window.instantResultEnabled) {
+                if (!window.instantResultEvaluated)
+                  window.instantResultEvaluated = {};
+                window.instantResultEvaluated[index] = true;
+              }
               updateQuestionGrid();
+              displayQuestion(index);
             };
 
-            if (isExamFinished) {
+            if (isQuestionEvaluated) {
               const isAnsCorrect = userAnswers[index][pair.left] === pair.right;
               rowDiv.style.backgroundColor = isAnsCorrect
                 ? "#d4edda"
@@ -2590,7 +2733,7 @@
             rowDiv.style.padding = "10px";
             rowDiv.style.border = "1px solid #ccc";
             rowDiv.style.borderRadius = "4px";
-            rowDiv.style.backgroundColor = isExamFinished
+            rowDiv.style.backgroundColor = isQuestionEvaluated
               ? id === q.correctOrder[i]
                 ? "#d4edda"
                 : "#f8d7da"
@@ -2616,7 +2759,7 @@
 
             rowDiv.appendChild(leftDiv);
 
-            if (!isExamFinished) {
+            if (!isQuestionEvaluated) {
               rowDiv.draggable = true;
               rowDiv.style.cursor = "grab";
 
@@ -2648,6 +2791,11 @@
                   const items = userAnswers[index];
                   const [draggedItem] = items.splice(draggedIndex, 1);
                   items.splice(i, 0, draggedItem);
+                  if (window.instantResultEnabled) {
+                    if (!window.instantResultEvaluated)
+                      window.instantResultEvaluated = {};
+                    window.instantResultEvaluated[index] = true;
+                  }
                   displayQuestion(index);
                   updateQuestionGrid();
                 }
@@ -2671,7 +2819,7 @@
             }
             if (isSelected) div.classList.add("selected");
 
-            if (isExamFinished) {
+            if (isQuestionEvaluated) {
               let isCorrectOption = false;
               if (isMulti) isCorrectOption = q.correct.includes(i);
               else isCorrectOption = q.correct === i;
@@ -2691,7 +2839,7 @@
               optHtml = `<img src="${opt}" style="max-height:80px; max-width:100%; vertical-align:middle; border-radius:4px;">`;
             }
             div.innerHTML = `${checkboxHtml}<span class="option-prefix">${String.fromCharCode(65 + i)}.</span> ${optHtml}`;
-            if (!isExamFinished)
+            if (!isQuestionEvaluated)
               div.onclick = () => selectOption(index, i, isMulti);
             optionsContainer.appendChild(div);
           });
@@ -2702,7 +2850,13 @@
       }
 
       function selectOption(qIdx, optIdx, isMulti) {
-        if (isExamFinished) return;
+        if (
+          isExamFinished ||
+          (window.instantResultEnabled &&
+            window.instantResultEvaluated &&
+            window.instantResultEvaluated[qIdx])
+        )
+          return;
         if (isMulti) {
           if (!userAnswers[qIdx] || !Array.isArray(userAnswers[qIdx]))
             userAnswers[qIdx] = [];
@@ -2713,6 +2867,13 @@
         } else {
           userAnswers[qIdx] = optIdx;
         }
+
+        if (window.instantResultEnabled) {
+          if (!window.instantResultEvaluated)
+            window.instantResultEvaluated = {};
+          window.instantResultEvaluated[qIdx] = true;
+        }
+
         displayQuestion(qIdx);
       }
 
@@ -2750,7 +2911,12 @@
           }
 
           if (hasAnswer) {
-            if (!isExamFinished) qDiv.classList.add("selected");
+            const isEvaluated =
+              isExamFinished ||
+              (window.instantResultEnabled &&
+                window.instantResultEvaluated &&
+                window.instantResultEvaluated[i]);
+            if (!isEvaluated) qDiv.classList.add("selected");
             else {
               const q = currentQuestions[i];
               if (q.type === "matching") {
